@@ -1,0 +1,17 @@
+<h3>Ingrese a Sistema de Arquivos</h3>
+<div class="container" [formGroup]="loginForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Matricula</mat-label>
+      <input matInput formControlName="matricula" required>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Senha</mat-label>
+      <input matInput formControlName="senha" required>
+    </mat-form-field>
+
+    <div><button mat-button color="primary" (click)="doLogin()" >Login</button></div>
+    
+</div>
+<div *ngIf="mensagem">{{ mensagem }}
+  
+</div>
