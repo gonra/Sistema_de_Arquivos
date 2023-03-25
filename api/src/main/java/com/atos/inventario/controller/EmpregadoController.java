@@ -9,6 +9,7 @@ import com.atos.inventario.atosdto.EmpregadoDTO;
 import com.atos.inventario.atosdto.FiltroPesquisaEmpregadoDTO;
 import com.atos.inventario.atosdto.LoginRequestDTO;
 import com.atos.inventario.atosdto.LoginResponseDTO;
+import com.atos.inventario.enums.DepartamentoEmpregadoEnum;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,10 +88,13 @@ public class EmpregadoController {
 
 	@PostMapping("/empregado/cadastrar")
 	public ResponseEntity<Empregado> cadastrarEmpregado(@RequestBody EmpregadoDTO empregadoDTO){
-		ModelMapper mapper = new ModelMapper();
 
-		Empregado empregado = mapper.map(empregadoDTO, Empregado.class);
-		empregado.setSenha(empregadoDTO.getMatricula());
+		Empregado empregado = new Empregado();
+		empregado.setNome(empregadoDTO.getNome());
+		empregado.setMatricula(empregadoDTO.getMatricula());
+		empregado.setEmail(empregadoDTO.getEmail());
+		empregado.setDepartamento(DepartamentoEmpregadoEnum.getByCodigo(empregadoDTO.getDepartamentoId()));
+		
 
 		return ResponseEntity.ok(empregadoRepository.save(empregado));
 	}

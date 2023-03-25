@@ -34,10 +34,10 @@ public class AuthTokenFilter extends OncePerRequestFilter{
 
 		try {
 			String jwt = parseJwt(request);
-			System.out.println("jwt:"+jwt);
+			//System.out.println("jwt:"+jwt);
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
 				String username = jwtUtils.getUserNameFromJwtToken(jwt);
-				System.out.println("username:"+username);
+				//System.out.println("username:"+username);
 				
 				//Once we get the token validate it.
 				Empregado userDetails = (Empregado) userDetailsService.loadUserByUsername(username);

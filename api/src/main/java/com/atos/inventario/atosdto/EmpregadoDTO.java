@@ -2,6 +2,8 @@ package com.atos.inventario.atosdto;
 
 import java.io.Serializable;
 
+import com.atos.inventario.enums.DepartamentoEmpregadoEnum;
+
 public class EmpregadoDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -10,8 +12,9 @@ public class EmpregadoDTO implements Serializable{
 	private String matricula;
 	private String nome;
 	private String email;
-	private String departamento;
+	private int departamentoId;
 	private Boolean ativo;
+	private String senha;
 
 	public Long getIdEmpregado() {
 		return idEmpregado;
@@ -46,11 +49,15 @@ public class EmpregadoDTO implements Serializable{
 	}
 
 	public String getDepartamento() {
-		return departamento;
+		return DepartamentoEmpregadoEnum.getByCodigo(this.departamentoId).getDescricao();
+	}
+	
+	public int getDepartamentoId() {
+		return departamentoId;
 	}
 
-	public void setDepartamento(String departamento) {
-		this.departamento = departamento;
+	public void setDepartamentoId(int departamentoId) {
+		this.departamentoId = departamentoId;
 	}
 
 	public Boolean getAtivo() {
@@ -61,5 +68,8 @@ public class EmpregadoDTO implements Serializable{
 		this.ativo = ativo;
 	}
 	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 	
 }

@@ -11,10 +11,34 @@
 				{
 					"name": "Consulta Lista Contratos",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/contratos",
+							"raw": "http://{{HOST}}:8080/api/contrato/listar",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -22,7 +46,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"contratos"
+								"contrato",
+								"listar"
 							]
 						}
 					},
@@ -31,11 +56,26 @@
 				{
 					"name": "Salva Contrato",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"unidadeProdutoraId\": \"CONG\",\r\n    \"classificacaoDocumentalId\":100,\r\n    \"dataLimite\": \"2022-12-31\",\r\n    \"empregadoId\": 1,\r\n    \"dataCriacao\": \"2022-12-06\",\r\n    \"localizacao\": {\r\n        \"endereco\":\"RECEITA FEDERAL-SP\",\r\n        \"predio\":\"40\",\r\n        \"bloco\":\"A\",\r\n        \"sala\":\"301\",\r\n        \"posicao\":\"N3\",\r\n        \"numeroCaixa\":\"CX-200\"\r\n        \r\n    },\r\n    \"documentoEncaminhamento\":\"CO-0100100\",\r\n    \"empresaContratada\":\"EMPRESA E001\",\r\n    \"numeroCaixaArquivoCustodia\":\"CX100-1001001\",\r\n    \"numeroCaixaEscritorioOrigem\":\"CE100-201314\",\r\n    \"numeroContrato\":\"CT-0100101\",\r\n    \"numeroPec\":\"PEC.3322\",\r\n    \"objetoResumido\":\"CONTRATO FORNECIMENTO TIJOLO MCMV\"\r\n}",
+							"raw": "{\r\n    \"unidadeProdutoraId\": \"CONG\",\r\n    \"classificacaoDocumentalId\":100,\r\n    \"dataLimite\": \"2022-12-31\",\r\n    \"empregadoId\": 1,\r\n    \"dataCriacao\": \"2022-12-06\",\r\n    \"localizacao\": {\r\n        \"endereco\":\"RECEITA FEDERAL-SP\",\r\n        \"predio\":\"42\",\r\n        \"bloco\":\"A\",\r\n        \"sala\":\"301\",\r\n        \"posicao\":\"N3\",\r\n        \"numeroCaixa\":\"CX-201\"\r\n        \r\n    },\r\n    \"documentoEncaminhamento\":\"CO-0100100\",\r\n    \"empresaContratada\":\"EMPRESA E001\",\r\n    \"numeroCaixaArquivoCustodia\":\"CX100-1001002\",\r\n    \"numeroCaixaEscritorioOrigem\":\"CE100-201313\",\r\n    \"numeroContrato\":\"CT-0100102\",\r\n    \"numeroPec\":\"PEC.3323\",\r\n    \"objetoResumido\":\"CONTRATO FORNECIMENTO TIJOLO MCMV\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -43,7 +83,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/cadastrarContrato",
+							"raw": "http://{{HOST}}:8080/api/contrato/cadastrar",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -51,7 +91,53 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"cadastrarContrato"
+								"contrato",
+								"cadastrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisa Contratos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoDocumento\": \"CONTRATO\",\r\n    \"unidadeProdutora\":\"\",\r\n    \"classificacaoDocumental\": \"\",\r\n    \"dataLimite\": \"2022-12-06\",\r\n    \"localizacao\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}:8080/api/contrato/listar",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"contrato",
+								"listar"
 							]
 						}
 					},
@@ -60,6 +146,16 @@
 				{
 					"name": "Consulta Contrato por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -81,10 +177,25 @@
 				{
 					"name": "Deleta Contrato por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/contrato/3",
+							"raw": "http://{{HOST}}:8080/api/contrato/1",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -93,7 +204,7 @@
 							"path": [
 								"api",
 								"contrato",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -107,10 +218,34 @@
 				{
 					"name": "Consulta Lista Licitacoes",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/licitacoes",
+							"raw": "http://{{HOST}}:8080/api/licitacao/listar",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -118,7 +253,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"licitacoes"
+								"licitacao",
+								"listar"
 							]
 						}
 					},
@@ -127,6 +263,21 @@
 				{
 					"name": "Salva Licitacao",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -139,7 +290,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/cadastrarLicitacao",
+							"raw": "http://{{HOST}}:8080/api/licitacao/cadastrar",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -147,7 +298,53 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"cadastrarLicitacao"
+								"licitacao",
+								"cadastrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisa Licitacoes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoDocumento\": \"\",\r\n    \"unidadeProdutora\": 100,\r\n    \"classificacaoDocumental\": \"\",\r\n    \"dataLimite\": \"2022-12-06\",\r\n    \"localizacao\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}:8080/api/licitacao/listar",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"licitacao",
+								"listar"
 							]
 						}
 					},
@@ -156,10 +353,25 @@
 				{
 					"name": "Consulta Licitacao por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/licitacao/1",
+							"raw": "http://{{HOST}}:8080/api/licitacao/7",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -168,7 +380,7 @@
 							"path": [
 								"api",
 								"licitacao",
-								"1"
+								"7"
 							]
 						}
 					},
@@ -177,10 +389,25 @@
 				{
 					"name": "Deleta Licitacao por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/licitacao/1",
+							"raw": "http://{{HOST}}:8080/api/licitacao/7",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -189,7 +416,7 @@
 							"path": [
 								"api",
 								"licitacao",
-								"1"
+								"7"
 							]
 						}
 					},
@@ -203,10 +430,34 @@
 				{
 					"name": "Consulta Lista Financeira",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/financeiras",
+							"raw": "http://{{HOST}}:8080/api/financeira/listar",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -214,7 +465,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"financeiras"
+								"financeira",
+								"listar"
 							]
 						}
 					},
@@ -223,6 +475,21 @@
 				{
 					"name": "Salva Financeira",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -235,7 +502,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/cadastrarFinanceira",
+							"raw": "http://{{HOST}}:8080/api/financeira/cadastrar",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -243,7 +510,53 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"cadastrarFinanceira"
+								"financeira",
+								"cadastrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisa Financeira",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"unidadeprodutora\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}:8080/api/financeira/listar",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"financeira",
+								"listar"
 							]
 						}
 					},
@@ -252,6 +565,21 @@
 				{
 					"name": "Consulta Financeira por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -299,10 +627,34 @@
 				{
 					"name": "Consulta Lista Pasta Funcional",
 					"request": {
-						"method": "GET",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/pastas",
+							"raw": "http://{{HOST}}:8080/api/pasta/listar",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -310,7 +662,53 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"pastas"
+								"pasta",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisa Pasta Funcional",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"unidadeprodutora\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}:8080/api/pasta/listar",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"pasta",
+								"listar"
 							]
 						}
 					},
@@ -319,6 +717,21 @@
 				{
 					"name": "Salva Pasta Funcional",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -331,7 +744,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/cadastrarPasta",
+							"raw": "http://{{HOST}}:8080/api/pasta/cadastrar",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -339,7 +752,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"cadastrarPasta"
+								"pasta",
+								"cadastrar"
 							]
 						}
 					},
@@ -394,11 +808,38 @@
 			"item": [
 				{
 					"name": "Consulta Lista OutrosDoc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/outros",
+							"raw": "http://{{HOST}}:8080/api/outro/listar",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -406,7 +847,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"outros"
+								"outro",
+								"listar"
 							]
 						}
 					},
@@ -415,6 +857,21 @@
 				{
 					"name": "Salva OutroDoc",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -427,27 +884,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{HOST}}:8080/api/cadastrarOutro",
-							"protocol": "http",
-							"host": [
-								"{{HOST}}"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"cadastrarOutro"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Consulta OutroDoc por ID",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{HOST}}:8080/api/outro/1",
+							"raw": "http://{{HOST}}:8080/api/outro/cadastrar",
 							"protocol": "http",
 							"host": [
 								"{{HOST}}"
@@ -456,7 +893,43 @@
 							"path": [
 								"api",
 								"outro",
-								"1"
+								"cadastrar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta OutroDoc por ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{HOST}}:8080/api/outro/11",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"outro",
+								"11"
 							]
 						}
 					},
@@ -494,6 +967,68 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"unidade\":\"RECEITA FEDERAL-SP\",\r\n    \"predio\":\"35\",\r\n    \"agrupar\":\"FALSE\",\r\n    \"dataRelatorio\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}:8080/api/relatorio1",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"relatorio1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Relatorio2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -523,12 +1058,154 @@
 			]
 		},
 		{
+			"name": "Empregados",
+			"item": [
+				{
+					"name": "Lista empregados ativos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\":\"\",\r\n    \"matricula\":\"\",\r\n    \"email\":\"\",\r\n    \"unidadeDepartamento\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}:8080/api/empregado/listar",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empregado",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desativar Empregado",
+					"request": {
+						"auth": {
+							"type": "basic"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"matricula\":\"admin\",\r\n    \"senha\":\"senha123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}:8080/api/cadastrarEmpregado",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"cadastrarEmpregado"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar empregado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"nome\":\"abc\",\r\n    \"email\":\"abc123\",\r\n    \"departamento\":\"101\",\r\n    \"matricula\":\"user123\",\r\n    \"ativo\":0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}:8080/api/empregado/cadastrar",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"empregado",
+								"cadastrar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Classificacao documental",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{HOST}}:8080/api/empregado?nome=admin&senha=senha123",
+					"raw": "http://{{HOST}}:8080/api/classificacoes",
 					"protocol": "http",
 					"host": [
 						"{{HOST}}"
@@ -536,29 +1213,52 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"empregado"
-					],
-					"query": [
-						{
-							"key": "nome",
-							"value": "admin"
-						},
-						{
-							"key": "senha",
-							"value": "senha123"
-						}
+						"classificacoes"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Login Copy",
+			"name": "Login Admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"TOKEN\", jsonData.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "GET",
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"matricula\":\"admin\",\r\n    \"senha\":\"senha123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://{{HOST}}:8080/api/empregado?nome=admin&senha=senha123",
+					"raw": "http://{{HOST}}:8080/api/login",
 					"protocol": "http",
 					"host": [
 						"{{HOST}}"
@@ -566,17 +1266,39 @@
 					"port": "8080",
 					"path": [
 						"api",
-						"empregado"
-					],
-					"query": [
-						{
-							"key": "nome",
-							"value": "admin"
-						},
-						{
-							"key": "senha",
-							"value": "senha123"
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"matricula\":\"user1\",\r\n    \"senha\":\"senha123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
+					}
+				},
+				"url": {
+					"raw": "http://{{HOST}}:8080/api/login",
+					"protocol": "http",
+					"host": [
+						"{{HOST}}"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
 					]
 				}
 			},
@@ -601,12 +1323,6 @@
 					""
 				]
 			}
-		}
-	],
-	"variable": [
-		{
-			"key": "HOST",
-			"value": "localhost"
 		}
 	]
 }
