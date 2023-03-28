@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { User } from './model/user';
+import { Component, OnInit } from '@angular/core';
+import { Parametros } from './constant/parametros';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,9 @@ import { User } from './model/user';
 
 
 
-export class AppComponent {
+export class AppComponent{
+
   title = 'frontend';
+  parametros = new Parametros();
+
 }

@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Parametros } from '../constant/parametros';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceUserService {
 
-  myhost = "192.168.199.130";
+  myhost = Parametros.myhost;
   etapa: Number = 1;
   token = "";
 
