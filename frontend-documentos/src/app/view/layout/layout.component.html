@@ -1,1 +1,20 @@
 <p>layout works!</p>
+
+<app-menu></app-menu>
+
+<div *ngIf="menuitem == 0">
+    <h2>Dashboard usuario </h2>
+    <p>* Tabela com botoes acao *</p>
+</div>
+
+<div *ngIf="menuitem == 1">
+    <app-document></app-document>
+</div>
+
+<div *ngIf="menuitem == 2">
+    <app-report></app-report>
+</div>
+
+<div *ngIf="menuitem == 3">
+    <app-search></app-search>>
+</div>
