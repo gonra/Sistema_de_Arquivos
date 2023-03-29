@@ -1,5 +1,5 @@
 export class Parametros {
 
-    public static myhost:string = "192.168.199.130";
+    public static apiurl:string = "http://192.168.199.130:8080";
 
 }

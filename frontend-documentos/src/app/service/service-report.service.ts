@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { Parametros } from '../constant/parametros';
 import { Document } from '../model/document';
 import { Location } from '../model/localizacao';
 import { Report } from '../model/report';
@@ -12,7 +13,6 @@ import { User } from '../model/user';
 })
 export class ServiceReportService {
 
-  myhost = "192.168.199.130";
   etapa: Number = 1;
   token = "";
 

@@ -7,7 +7,6 @@ import { Parametros } from '../constant/parametros';
 })
 export class ServiceUserService {
 
-  myhost = Parametros.myhost;
   etapa: Number = 1;
   token = "";
 
@@ -19,7 +18,7 @@ export class ServiceUserService {
       senha:pass
     };
     this.httpClient.post(
-      'http://'+this.myhost+':8080/api/login', data
+      Parametros.apiurl+'/api/login', data
     ).subscribe( 
       (resp:any) => this.token = resp.token
     );

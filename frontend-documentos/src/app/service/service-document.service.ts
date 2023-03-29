@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { Parametros } from '../constant/parametros';
 import { Document } from '../model/document';
 import { Location } from '../model/localizacao';
 import { User } from '../model/user';
@@ -11,7 +12,6 @@ import { User } from '../model/user';
 })
 export class ServiceDocumentService {
 
-  myhost = "192.168.199.130";
   etapa: Number = 1;
   token = "";
   httpOptions = {
@@ -33,30 +33,30 @@ export class ServiceDocumentService {
  
     if (tipoDoc = 'CONTRATO') {
       this.httpClient.post(
-        'http://'+this.myhost+':8080/api/contrato/listar',filtro, this.httpOptions);
+        Parametros.apiurl+'/api/contrato/listar',filtro, this.httpOptions);
     }
 
     if (tipoDoc = 'LICITACAO') {
       this.httpClient.post(
-        'http://'+this.myhost+':8080/api/licitacao/listar',filtro, this.httpOptions);
+        Parametros.apiurl+'/api/licitacao/listar',filtro, this.httpOptions);
   
     }
 
     if (tipoDoc = 'FINANCEIRA') {
       this.httpClient.post(
-        'http://'+this.myhost+':8080/api/financeira/listar',filtro, this.httpOptions);
+        Parametros.apiurl+'/api/financeira/listar',filtro, this.httpOptions);
   
     }
 
     if (tipoDoc = 'PASTA') {
       this.httpClient.post(
-        'http://'+this.myhost+':8080/api/pasta/listar',filtro, this.httpOptions);
+        Parametros.apiurl+'/api/pasta/listar',filtro, this.httpOptions);
   
     }
 
     if (tipoDoc = 'OUTRO') {
       this.httpClient.post(
-        'http://'+this.myhost+':8080/api/outro/listar',filtro, this.httpOptions);
+        Parametros.apiurl+'/api/outro/listar',filtro, this.httpOptions);
   
     }
   }
@@ -69,31 +69,31 @@ export class ServiceDocumentService {
     });
     if (tipoDoc = 'CONTRATO') {
       this.httpClient.post(
-        'http://'+this.myhost+':8080/api/contrato/listar',doc, this.httpOptions);
+        Parametros.apiurl+'/api/contrato/listar',doc, this.httpOptions);
   
     }
 
     if (tipoDoc = 'LICITACAO') {
       this.httpClient.post(
-        'http://'+this.myhost+':8080/api/licitacao/listar',doc, this.httpOptions);
+        Parametros.apiurl+'/api/licitacao/listar',doc, this.httpOptions);
   
     }
 
     if (tipoDoc = 'FINANCEIRA') {
       this.httpClient.post(
-        'http://'+this.myhost+':8080/api/financeira/listar',doc, this.httpOptions);
+        Parametros.apiurl+'/api/financeira/listar',doc, this.httpOptions);
   
     }
 
     if (tipoDoc = 'PASTA') {
       this.httpClient.post(
-        'http://'+this.myhost+':8080/api/pasta/cadastrar',doc, this.httpOptions);
+        Parametros.apiurl+'/api/pasta/cadastrar',doc, this.httpOptions);
   
     }
 
     if (tipoDoc = 'OUTRO') {
       this.httpClient.post(
-        'http://'+this.myhost+':8080/api/outro/cadastrar',doc, this.httpOptions);
+        Parametros.apiurl+'/api/outro/cadastrar',doc, this.httpOptions);
   
     }
   }
@@ -106,31 +106,31 @@ export class ServiceDocumentService {
     });
     if (tipoDoc = 'CONTRATO') {
       this.httpClient.get(
-        'http://'+this.myhost+':8080/api/contrato/'+id, this.httpOptions);
+        Parametros.apiurl+'/api/contrato/'+id, this.httpOptions);
   
     }
 
     if (tipoDoc = 'LICITACAO') {
       this.httpClient.get(
-        'http://'+this.myhost+':8080/api/licitacao/'+id, this.httpOptions);
+        Parametros.apiurl+'/api/licitacao/'+id, this.httpOptions);
   
     }
 
     if (tipoDoc = 'FINANCEIRA') {
       this.httpClient.get(
-        'http://'+this.myhost+':8080/api/financeira/'+id, this.httpOptions);
+        Parametros.apiurl+'/api/financeira/'+id, this.httpOptions);
   
     }
 
     if (tipoDoc = 'PASTA') {
       this.httpClient.get(
-        'http://'+this.myhost+':8080/api/pasta/'+id, this.httpOptions);
+        Parametros.apiurl+'/api/pasta/'+id, this.httpOptions);
   
     }
 
     if (tipoDoc = 'OUTRO') {
       this.httpClient.get(
-        'http://'+this.myhost+':8080/api/outro/'+id, this.httpOptions);
+        Parametros.apiurl+'/api/outro/'+id, this.httpOptions);
   
     }
   }
@@ -143,31 +143,31 @@ export class ServiceDocumentService {
     });
     if (tipoDoc = 'CONTRATO') {
       this.httpClient.delete(
-        'http://'+this.myhost+':8080/api/contrato/'+id, this.httpOptions);
+        Parametros.apiurl+'/api/contrato/'+id, this.httpOptions);
   
     }
 
     if (tipoDoc = 'LICITACAO') {
       this.httpClient.delete(
-        'http://'+this.myhost+':8080/api/licitacao/'+id, this.httpOptions);
+        Parametros.apiurl+'/api/licitacao/'+id, this.httpOptions);
   
     }
 
     if (tipoDoc = 'FINANCEIRA') {
       this.httpClient.delete(
-        'http://'+this.myhost+':8080/api/financeira/'+id, this.httpOptions);
+        Parametros.apiurl+'/api/financeira/'+id, this.httpOptions);
   
     }
 
     if (tipoDoc = 'PASTA') {
       this.httpClient.delete(
-        'http://'+this.myhost+':8080/api/pasta/'+id, this.httpOptions);
+        Parametros.apiurl+'/api/pasta/'+id, this.httpOptions);
   
     }
 
     if (tipoDoc = 'OUTRO') {
       this.httpClient.delete(
-        'http://'+this.myhost+':8080/api/outro/'+id, this.httpOptions);
+        Parametros.apiurl+'/api/outro/'+id, this.httpOptions);
   
     }
   }

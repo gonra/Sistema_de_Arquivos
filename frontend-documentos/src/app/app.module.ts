@@ -20,6 +20,7 @@ import { DocumentComponent } from './view/document/document.component';
 import { SearchComponent } from './view/search/search.component';
 import { ReportComponent } from './view/report/report.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LayoutComponent } from './view/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AdminusersComponent,
     DocumentComponent,
     SearchComponent,
-    ReportComponent
+    ReportComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
