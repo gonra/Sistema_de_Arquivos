@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class LayoutComponent {
     menuitem = 0;
+
+    ngOnInit(): void {
+        console.log('token', localStorage.getItem('token'));
+        console.log('user', localStorage.getItem('user'));
+        console.log('user', JSON.parse(localStorage.getItem('user')!));
+    }
 }

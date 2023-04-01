@@ -21,6 +21,8 @@ import { SearchComponent } from './view/search/search.component';
 import { ReportComponent } from './view/report/report.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutComponent } from './view/layout/layout.component';
+import {ServiceUserService} from "./service/service-user.service";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -45,9 +47,10 @@ import { LayoutComponent } from './view/layout/layout.component';
     MatInputModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    MatCardModule
   ],
-  providers: [],
+  providers: [ServiceUserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

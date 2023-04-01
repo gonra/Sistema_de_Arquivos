@@ -1,0 +1,38 @@
+section#login {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    background: #f5f5f5;
+}
+
+section#login h3 {
+    color: #6e6e6e;
+}
+
+section#login  .container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+section#login  .container > button {
+    background: #eeeef2;
+    margin-bottom: 15px;
+}
+
+.message{
+    max-width: 25vw;
+    min-width: 10vw;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%, 10px);
+    text-align: center;
+}

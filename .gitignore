@@ -1,4 +1,7 @@
 /frontend-documentos/node_modules/
 /frontend-documentos/.angular/
+/frontend-documentos/.idea/
+/frontend-documentos/package-lock.json
 /frontend-usuarios/node_modules/
 /frontend-usuarios/.angular/
+/frontend-documentos/src/app/constant/parametros.ts
