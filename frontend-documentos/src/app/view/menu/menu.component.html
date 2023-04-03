@@ -1,1 +1,25 @@
-<p>menu works!</p>
+<nav id="menu_left">
+    <h3 (click)="setMenu(0)">
+        Sistema
+        <br>
+        Arquivos
+    </h3>
+
+    <mat-nav-list  class="menu" role="navigation">
+        <a mat-list-item [ngClass]="active_menu(1) ? 'active_menu' : ''" (click)="setMenu(1)" [activated]="active_menu(1)">
+            Cadastro Documento
+        </a>
+        <a mat-list-item [ngClass]="active_menu(2) ? 'active_menu' : ''" (click)="setMenu(2)" [activated]="active_menu(2)">
+            Pesquisar
+        </a>
+        <a mat-list-item [ngClass]="active_menu(3) ? 'active_menu' : ''" (click)="setMenu(3)" [activated]="active_menu(3)">
+            Relatórios
+        </a>
+        <a *ngIf="isAdmin()" mat-list-item [ngClass]="active_menu(4) ? 'active_menu' : ''" (click)="setMenu(4)" [activated]="active_menu(4)">
+            Usuários
+        </a>
+    </mat-nav-list>
+
+
+    <mat-icon title="Logout" (click)="logout()" id="exit">exit_to_app</mat-icon>
+</nav>

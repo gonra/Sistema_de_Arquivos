@@ -38,8 +38,9 @@ export class LoginComponent implements OnInit {
             this.loginForm.get('senha').value
         );
 
-        if(!this.userService.isLoggedIn){
-            this.mensagem = "dasdasda";
+        if (!this.userService.isLoggedIn) {
+            this.userService.getError()
+                .subscribe(item => this.mensagem = item);
         }
     }
 

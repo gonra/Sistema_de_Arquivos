@@ -1,5 +1,5 @@
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Parametros} from '../constant/parametros';
 import {Router} from "@angular/router";
 import {Observable, of} from "rxjs";
@@ -11,7 +11,9 @@ export class ServiceUserService {
 
     etapa: Number = 1;
     token = "";
-    error_message: string = '';
+    // @Output() error_message = new EventEmitter();
+
+    error_message: EventEmitter<string> = new EventEmitter();
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -52,16 +54,17 @@ export class ServiceUserService {
                 },
                 error: (error: HttpErrorResponse) => {
                     if (error.status == 401)
-                        this.error_message = "Usuário ou senha incorretos!"
+                        this.error_message.emit("Usuário ou senha incorretos!")
                     else
-                        this.error_message = "Ocorreu um erro, contate o administrador do sistema."
+                        this.error_message.emit("Ocorreu um erro, contate o administrador do sistema.");
                 }
             }
         );
     }
 
-    getError(): string {
-        return this.error_message;
+    isAdmin(){
+        let user = JSON.parse(localStorage.getItem('user')!);
+        return user?.authorities.filter((u: { authority: any; }) => u.authority == 'ADMIN') != 0;
     }
 
     doDataUserLogged() {
@@ -70,7 +73,6 @@ export class ServiceUserService {
 
     get isLoggedIn(): boolean {
         let user = JSON.parse(localStorage.getItem('user')!);
-        console.log('user_logged', user)
         return user !== null;
     }
 
@@ -78,5 +80,9 @@ export class ServiceUserService {
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         this.router.navigate(['login']);
+    }
+
+    getError() {
+        return this.error_message;
     }
 }

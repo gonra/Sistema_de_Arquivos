@@ -23,6 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutComponent } from './view/layout/layout.component';
 import {ServiceUserService} from "./service/service-user.service";
 import {MatCardModule} from "@angular/material/card";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -48,7 +50,12 @@ import {MatCardModule} from "@angular/material/card";
     HttpClientModule,
     ReactiveFormsModule,
     NgbModule,
-    MatCardModule
+    MatCardModule,
+    MatSidenavModule,
+    MatListModule
+  ],
+  exports: [
+    MenuComponent
   ],
   providers: [ServiceUserService],
   bootstrap: [AppComponent]

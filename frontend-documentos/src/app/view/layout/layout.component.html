@@ -1,20 +1,26 @@
-<p>layout works!</p>
+<mat-sidenav-container class="system_container">
+    <mat-sidenav mode="side" opened>
+        <app-menu [indexMenu]="menuitem" (sendIndexMenu)="setIndexMenu($event)"></app-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div *ngIf="menuitem == 0">
+            <h2>Dashboard, bem-vindo(a) {{ user_logged?.nome }}</h2>
+        </div>
 
-<app-menu></app-menu>
+        <div *ngIf="menuitem == 1">
+            <app-document></app-document>
+        </div>
 
-<div *ngIf="menuitem == 0">
-    <h2>Dashboard usuario </h2>
-    <p>* Tabela com botoes acao *</p>
-</div>
+        <div *ngIf="menuitem == 2">
+            <app-report></app-report>
+        </div>
 
-<div *ngIf="menuitem == 1">
-    <app-document></app-document>
-</div>
+        <div *ngIf="menuitem == 3">
+            <app-search></app-search>
+        </div>
 
-<div *ngIf="menuitem == 2">
-    <app-report></app-report>
-</div>
-
-<div *ngIf="menuitem == 3">
-    <app-search></app-search>>
-</div>
+        <div *ngIf="menuitem == 4 && isAdmin()">
+            <app-adminusers></app-adminusers>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
