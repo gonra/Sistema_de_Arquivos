@@ -18,11 +18,17 @@
     border-radius: 3px;
 }
 
-#menu_left #exit{
+#menu_left #exit,
+#menu_left #settings{
     cursor: pointer;
     color: #6e6e6e;
     position: absolute;
     bottom: 25px;
+    right: 25px;
+}
+
+#menu_left #settings{
+    right: auto;
     left: 25px;
 }
 
