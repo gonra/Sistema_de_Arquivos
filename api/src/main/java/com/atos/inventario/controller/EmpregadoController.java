@@ -151,4 +151,23 @@ public class EmpregadoController {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	@GetMapping(value = "/empregado/{id}" )
+	public ResponseEntity<Empregado> getUserById(@PathVariable("id") Long id ) {
+		Optional<Empregado> empregado = empregadoRepository.findById(id);
+		if (empregado.isPresent()) {
+			return ResponseEntity.ok(empregado.get());
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	@DeleteMapping(value = "/empregado/deleteUser/{id}" )
+	public void deleteUser(@PathVariable("id") Long id) {
+		Optional<Empregado> empregado = empregadoRepository.findById(id);
+		if (empregado.isPresent()) {
+			empregadoRepository.deleteById(id);
+		}	
+	}
+
 }	

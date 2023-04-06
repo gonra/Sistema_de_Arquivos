@@ -17,5 +17,7 @@ public interface EmpregadoRepository extends JpaRepository<Empregado, Long> {
 
 	@Query("SELECT e FROM Empregado e WHERE e.ativo = true ")
 	public List<Empregado> findByAtivoTrue();
+
+	public Optional<Empregado> findById(Long id);
 	
 }
