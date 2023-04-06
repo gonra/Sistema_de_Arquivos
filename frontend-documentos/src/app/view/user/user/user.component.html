@@ -1,0 +1,16 @@
+<div class="borda">
+    <h2 class="text-primary text-center">Gestão de Usuarios</h2>
+    <section *ngIf="action=='list'">
+        <button class="btn btn-primary" (click)="actionUser('create')">
+            Novo Usuario
+        </button>
+        <app-user-lista (backToUser)="actionUser($event)" (userId)="sendIdUser($event)"></app-user-lista>
+    </section>
+    <section *ngIf="action=='create'">
+        <app-user-incluir (backToUser)="actionUser($event)"></app-user-incluir>
+    </section>
+    <section *ngIf="action=='edit'">
+        <app-user-alterar [userId]="userId" (backToUser)="actionUser($event)"></app-user-alterar>
+    </section>
+
+</div>   
