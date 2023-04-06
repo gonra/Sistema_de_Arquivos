@@ -3,6 +3,7 @@ import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Parametros} from '../constant/parametros';
 import {Router} from "@angular/router";
 import {Observable, of} from "rxjs";
+import { User } from '../model/user';
 
 @Injectable({
     providedIn: 'root'
@@ -85,4 +86,5 @@ export class ServiceUserService {
     getError() {
         return this.error_message;
     }
+
 }

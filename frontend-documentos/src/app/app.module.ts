@@ -25,6 +25,10 @@ import {ServiceUserService} from "./service/service-user.service";
 import {MatCardModule} from "@angular/material/card";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
+import { UserComponent } from './view/user/user/user.component';
+import { UserIncluirComponent } from './view/user/user-incluir/user-incluir.component';
+import { UserListaComponent } from './view/user/user-lista/user-lista.component';
+import { UserAlterarComponent } from './view/user/user-alterar/user-alterar.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,11 @@ import {MatListModule} from "@angular/material/list";
     DocumentComponent,
     SearchComponent,
     ReportComponent,
-    LayoutComponent
+    LayoutComponent,
+    UserComponent,
+    UserIncluirComponent,
+    UserListaComponent,
+    UserAlterarComponent
   ],
   imports: [
     BrowserModule,
