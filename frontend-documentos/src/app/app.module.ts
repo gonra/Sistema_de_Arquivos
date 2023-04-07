@@ -29,6 +29,7 @@ import {UserIncluirComponent} from './view/user/user-incluir/user-incluir.compon
 import {UserListaComponent} from './view/user/user-lista/user-lista.component';
 import {UserAlterarComponent} from './view/user/user-alterar/user-alterar.component';
 import { EditUserLoggedComponent } from './view/user/edit-user-logged/edit-user-logged.component';
+import {NgOptimizedImage} from "@angular/common";
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { EditUserLoggedComponent } from './view/user/edit-user-logged/edit-user-
         NgbModule,
         MatCardModule,
         MatSidenavModule,
-        MatListModule
+        MatListModule,
+        NgOptimizedImage
     ],
     exports: [
         MenuComponent

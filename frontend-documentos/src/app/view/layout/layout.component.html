@@ -2,7 +2,7 @@
     <mat-sidenav mode="side" opened>
         <app-menu [indexMenu]="menuitem" (sendIndexMenu)="setIndexMenu($event)"></app-menu>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content [ngStyle]="{backgroundImage:'url(./assets/images/fundo.png)'}">
         <div *ngIf="menuitem == 0">
             <h2>Dashboard, bem-vindo(a) {{ user_logged?.nome }}</h2>
         </div>

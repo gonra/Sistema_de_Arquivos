@@ -1,22 +1,24 @@
 <nav id="menu_left">
     <h3 (click)="setMenu(0)">
-        Sistema
-        <br>
-        Arquivos
+        <img ngSrc="./assets/images/logo.png" id="logo" alt="" height="104" width="294"/>
     </h3>
 
     <mat-nav-list  class="menu" role="navigation">
         <a mat-list-item [ngClass]="active_menu(1) ? 'active_menu' : ''" (click)="setMenu(1)" [activated]="active_menu(1)">
-            Cadastro Documento
+<!--            <mat-icon fontIcon="">folder</mat-icon>-->
+            <span>Cadastro Documento</span>
         </a>
         <a mat-list-item [ngClass]="active_menu(2) ? 'active_menu' : ''" (click)="setMenu(2)" [activated]="active_menu(2)">
-            Pesquisar
+<!--            <mat-icon>search</mat-icon>-->
+            <span>Pesquisar</span>
         </a>
         <a mat-list-item [ngClass]="active_menu(3) ? 'active_menu' : ''" (click)="setMenu(3)" [activated]="active_menu(3)">
-            Relatórios
+<!--            <mat-icon>cloud_download</mat-icon>-->
+            <span>Relatórios</span>
         </a>
         <a *ngIf="isAdmin()" mat-list-item [ngClass]="active_menu(4) ? 'active_menu' : ''" (click)="setMenu(4)" [activated]="active_menu(4)">
-            Usuários
+<!--            <mat-icon>people</mat-icon>-->
+            <span>Usuários</span>
         </a>
     </mat-nav-list>
 

@@ -2,6 +2,21 @@
     background: rgba(63, 81, 181, .15);
 }
 
+.menu.mat-mdc-nav-list a {
+    display: flex;
+    margin-bottom: 10px;
+    justify-items: center;
+}
+
+.menu.mat-mdc-nav-list a .mat-icon{
+    float: left;
+    margin-right: 5px;
+}
+.menu.mat-mdc-nav-list a .mat-icon,
+.menu.mat-mdc-nav-list a span {
+    color: #6e6e6e !important;
+}
+
 #menu_left {
     width: 100%;
     height: 100%;
@@ -13,9 +28,10 @@
     color: rgb(63, 80, 181);
     text-align: center;
     cursor: pointer;
-    background: rgba(63, 81, 181, .15);
+    /*background: rgba(63, 81, 181, .15);*/
     padding: 10px 0;
     border-radius: 3px;
+    display: block;
 }
 
 #menu_left #exit,

@@ -10,6 +10,9 @@
 .mat-sidenav-content {
     padding: 25px;
     color: #8f8f8f !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
 }
 
 
