@@ -2,8 +2,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/model/user';
-import { ServiceAdmuserService } from 'src/app/service/service-admuser.service';
 import { ServiceUserService } from 'src/app/service/service-user.service';
+import { ServiceLoginService } from 'src/app/service/service-login.service';
 
 @Component({
   selector: 'app-user-lista',
@@ -26,12 +26,11 @@ export class UserListaComponent implements OnInit {
   
   displayedColumns = ['matricula', 'nome', 'edit', 'delete']
 
-  constructor(private userService: ServiceAdmuserService) {
+  constructor(private userService: ServiceUserService) {
       this.users = userService.listUsers(this.ativo, this.email, this.matricula, this.nome, this.unidadeDepartamento);
   }
 
   ngOnInit(): void {
-    console.log("acessei metodo");
     this.listUsers();
   }
 
@@ -47,8 +46,7 @@ export class UserListaComponent implements OnInit {
   deleteUser(userId: number): void {
 
     this.userService.deleteUser(userId).subscribe(
-      () => {
-        console.log(userId + " excluido com sucesso!");
+      () => {''
         this.listUsers();
       }
     );

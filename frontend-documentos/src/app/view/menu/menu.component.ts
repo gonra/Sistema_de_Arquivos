@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ServiceUserService} from '../../service/service-user.service'
+import {ServiceLoginService} from '../../service/service-login.service'
 
 @Component({
     selector: 'app-menu',
@@ -11,7 +11,7 @@ export class MenuComponent implements OnInit {
     @Output() sendIndexMenu = new EventEmitter();
     @Input() indexMenu: number = 0;
 
-    constructor(private userService: ServiceUserService) {
+    constructor(private userService: ServiceLoginService) {
     }
 
     ngOnInit(): void {

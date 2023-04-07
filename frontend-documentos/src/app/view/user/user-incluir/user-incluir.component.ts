@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ServiceAdmuserService } from 'src/app/service/service-admuser.service';
 import { ServiceUserService } from 'src/app/service/service-user.service';
+import { ServiceLoginService } from 'src/app/service/service-login.service';
 
 @Component({
   selector: 'app-user-incluir',
@@ -16,7 +16,7 @@ export class UserIncluirComponent implements OnInit {
   formCreateUser: FormGroup;
 
   constructor(private formBuilder: FormBuilder, 
-    public userService: ServiceAdmuserService) {
+    public userService: ServiceUserService) {
       this.formCreateUser = new FormGroup({
         matricula:  new FormControl(''),
         nome:  new FormControl('')

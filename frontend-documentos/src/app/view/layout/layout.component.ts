@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ServiceUserService} from "../../service/service-user.service";
+import { ServiceLoginService} from "../../service/service-login.service";
 
 @Component({
   selector: 'app-layout',
@@ -10,11 +10,10 @@ export class LayoutComponent {
     menuitem = 0;
     user_logged: any;
 
-    constructor(private userService: ServiceUserService) {
+    constructor(private userService: ServiceLoginService) {
     }
     ngOnInit(): void {
         this.user_logged = JSON.parse(localStorage.getItem('user')!);
-        console.log('user', this.user_logged);
     }
 
     setIndexMenu(indexMenu: number){

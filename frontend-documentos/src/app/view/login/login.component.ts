@@ -2,7 +2,7 @@ import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup} from '@angular/forms';
 import {FormControl} from '@angular/forms';
-import {ServiceUserService} from '../../service/service-user.service';
+import {ServiceLoginService} from '../../service/service-login.service';
 import {User} from "../../model/user";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Observable} from "rxjs";
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     mensagem: any = "";
     loginForm: any;
 
-    constructor(private userService: ServiceUserService, private router: Router) {
+    constructor(private userService: ServiceLoginService, private router: Router) {
         this.loginForm = new FormGroup({
             matricula: new FormControl(''),
             senha: new FormControl('')

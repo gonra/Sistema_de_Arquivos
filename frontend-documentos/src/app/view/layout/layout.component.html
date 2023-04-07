@@ -22,5 +22,9 @@
         <div *ngIf="menuitem == 4 && isAdmin()">
             <app-user></app-user>
         </div>
+
+        <div *ngIf="menuitem == 5">
+            <app-edit-user-logged></app-edit-user-logged>
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

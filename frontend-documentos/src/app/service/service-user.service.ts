@@ -1,17 +1,19 @@
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {EventEmitter, Injectable, Output} from '@angular/core';
-import {Parametros} from '../constant/parametros';
-import {Router} from "@angular/router";
-import {Observable, of} from "rxjs";
+import { EventEmitter, Injectable } from '@angular/core';
+import { Parametros } from '../constant/parametros';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { User } from '../model/user';
+import { Observable } from 'rxjs';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ServiceUserService {
 
+  private readonly urlModule = Parametros.apiurl + "/api/empregado/";
+
     etapa: Number = 1;
-    token = "";
+    token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY4MDcyMjUwOSwiZXhwIjoxNjgwNzQwNTA5fQ.Zamk79Rup0bbfroxTMEjTFFXegL8I18NptMLOzoPDGdfr_PQaQk8lbkW8mhjX1Egs5Tr6n5eYkGaO0MnBPFGiw";
     // @Output() error_message = new EventEmitter();
 
     error_message: EventEmitter<string> = new EventEmitter();
@@ -34,57 +36,31 @@ export class ServiceUserService {
     }
 
     constructor(private httpClient: HttpClient, private router: Router) {
+      this.setToken(localStorage.getItem("token")!);
     }
 
-    doLogin(user:string,pass:string){
-        var data = {
-            matricula:user,
-            senha:pass
-        };
-        this.httpClient.post(
-            Parametros.apiurl+'/api/login', data
-        ).subscribe(
-            {
-                next: (res: any) => {
-                    localStorage.setItem("token", res.token);
-                    this.setToken(res.token);
-                    this.doDataUserLogged().subscribe((user: any) => {
-                        localStorage.setItem('user', JSON.stringify(user));
-                        this.router.navigate(['/home'])
-                    })
-                },
-                error: (error: HttpErrorResponse) => {
-                    if (error.status == 401)
-                        this.error_message.emit("Usuário ou senha incorretos!")
-                    else
-                        this.error_message.emit("Ocorreu um erro, contate o administrador do sistema.");
-                }
-            }
-        );
+    loadUser(id: number) {
+      return this.httpClient.get<User>(this.urlModule + id, this.httpOptions);
     }
 
-    isAdmin(){
-        let user = JSON.parse(localStorage.getItem('user')!);
-        return user?.authorities.filter((u: { authority: any; }) => u.authority == 'ADMIN') != 0;
+    deleteUser(id: number) {
+      return this.httpClient.delete(this.urlModule + 'deleteUser/' + id, this.httpOptions);
     }
 
-    doDataUserLogged() {
-        return this.httpClient.get(Parametros.apiurl + '/api/user', this.httpOptions);
+    listUsers(pAtivo: string, pEmail: string, pMatricula: string, pNome: string, pUnidadeDepartamento: string) { 
+      var data = {
+          ativo: pAtivo,
+          email: pEmail,
+          matricula: pMatricula,
+          nome: pNome,
+          unidadeDepartamento: pUnidadeDepartamento
+      };
+      return this.httpClient.post<User[]>(this.urlModule + 'listar', data, this.httpOptions);
     }
 
-    get isLoggedIn(): boolean {
-        let user = JSON.parse(localStorage.getItem('user')!);
-        return user !== null;
+    saveUser(user: User) : Observable<User>{
+        return this.httpClient.post<User>(this.urlModule + 'cadastrar', user, this.httpOptions);
     }
 
-    SignOut() {
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-        this.router.navigate(['login']);
-    }
-
-    getError() {
-        return this.error_message;
-    }
-
+  
 }
