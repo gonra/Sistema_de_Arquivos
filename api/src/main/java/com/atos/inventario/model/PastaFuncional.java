@@ -14,17 +14,8 @@ public class PastaFuncional extends Documento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String documentoEncaminhamento;
 	private String numeroCaixaEscritorioOrigem;
 	private String numeroCaixaArquivoCustodia;
-
-	public String getDocumentoEncaminhamento() {
-		return documentoEncaminhamento;
-	}
-
-	public void setDocumentoEncaminhamento(String documentoEncaminhamento) {
-		this.documentoEncaminhamento = documentoEncaminhamento;
-	}
 
 	public String getNumeroCaixaEscritorioOrigem() {
 		return numeroCaixaEscritorioOrigem;

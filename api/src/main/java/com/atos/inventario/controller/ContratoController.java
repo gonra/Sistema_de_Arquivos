@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atos.inventario.atosdto.ContratoDTO;
 import com.atos.inventario.atosdto.FiltroPesquisaDTO;
-import com.atos.inventario.enums.UnidadeProdutoraEnum;
 import com.atos.inventario.model.ClassificacaoDocumental;
 import com.atos.inventario.model.Contrato;
 import com.atos.inventario.model.Empregado;
 import com.atos.inventario.model.Localizacao;
+import com.atos.inventario.model.UnidadeProdutora;
 import com.atos.inventario.repositories.*;
 import com.atos.inventario.services.LocalizacaoService;
 
@@ -37,6 +37,9 @@ public class ContratoController {
 	
 	@Autowired
 	ClassificacaoDocumentalRepository classificacaoDocumentalRepository;
+	
+	@Autowired
+	UnidadeProdutoraRepository unidadeProdutoraRepository;
 		
 	@Autowired
 	EmpregadoRepository empregadoRepository;
@@ -63,7 +66,7 @@ public class ContratoController {
 		 * */
 
 		List<Contrato> contratos = contratoRepository.findAll().stream()
-				.filter(filtro.getUnidadeProdutora() != null ? c -> c.getUnidadeProdutora().getCodigo().equals(filtro.getUnidadeProdutora()) : c -> true)
+				.filter(filtro.getUnidadeProdutora() != null ? c -> c.getUnidadeProdutora().getIdUnidadeProdutora().equals(filtro.getUnidadeProdutora()) : c -> true)
 				.filter(filtro.getClassificacaoDocumental() != null ? c -> c.getClassificacaoDocumental().getCodigoClassificacaoDocumental().equals(filtro.getClassificacaoDocumental())  : c -> true)
 				.filter(filtro.getDataLimite() != null ? c -> c.getDataLimite().equals(filtro.getDataLimite()) : c -> true)
 				.filter(filtro.getLocalizacao() != null ? c -> c.getLocalizacao().getIdLocalizacao() == Long.parseLong(filtro.getLocalizacao()) : c -> true)
@@ -78,7 +81,7 @@ public class ContratoController {
 		
 		Contrato contrato = mapper.map(contratoDto, Contrato.class);
 		
-		UnidadeProdutoraEnum unidadeProdutora = UnidadeProdutoraEnum.getByCodigo(contratoDto.getUnidadeProdutoraId());
+		UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(contratoDto.getUnidadeProdutoraId()).get();
 		contrato.setUnidadeProdutora(unidadeProdutora);
 		
 		Empregado empregado = empregadoRepository.findById(contratoDto.getEmpregadoId()).get();

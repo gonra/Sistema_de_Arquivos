@@ -18,14 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.atos.inventario.atosdto.FiltroPesquisaDTO;
 
 import com.atos.inventario.atosdto.OutroDocumentoDTO;
-import com.atos.inventario.enums.UnidadeProdutoraEnum;
 import com.atos.inventario.model.ClassificacaoDocumental;
 import com.atos.inventario.model.Empregado;
 import com.atos.inventario.model.Localizacao;
 import com.atos.inventario.model.OutroDocumento;
+import com.atos.inventario.model.UnidadeProdutora;
 import com.atos.inventario.repositories.ClassificacaoDocumentalRepository;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.OutroDocumentoRepository;
+import com.atos.inventario.repositories.UnidadeProdutoraRepository;
 import com.atos.inventario.services.LocalizacaoService;
 
 @RestController
@@ -38,6 +39,9 @@ public class OutroDocumentoController {
 	
 	@Autowired
 	ClassificacaoDocumentalRepository classificacaoDocumentalRepository;
+	
+	@Autowired
+	UnidadeProdutoraRepository unidadeProdutoraRepository;
 	
 	@Autowired
 	EmpregadoRepository empregadoRepository;
@@ -61,7 +65,7 @@ public class OutroDocumentoController {
 		 * */
 		
 		List<OutroDocumento> outrosDocumentos = outroDocumentoRepository.findAll().stream()
-				.filter(filtro.getUnidadeProdutora() != null ? o -> o.getUnidadeProdutora().getCodigo().equals(filtro.getUnidadeProdutora()) : o -> true)
+				.filter(filtro.getUnidadeProdutora() != null ? o -> o.getUnidadeProdutora().getIdUnidadeProdutora().equals(filtro.getUnidadeProdutora()) : o -> true)
 				.filter(filtro.getClassificacaoDocumental() != null ? o -> o.getClassificacaoDocumental().getCodigoClassificacaoDocumental().equals(filtro.getClassificacaoDocumental()) : o -> true)
 				.filter(filtro.getDataLimite() != null ? o -> o.getDataLimite().equals(filtro.getDataLimite()) : o -> true)
 				.filter(filtro.getLocalizacao() != null ? o -> o.getLocalizacao().getIdLocalizacao() == Long.parseLong(filtro.getLocalizacao()) : o -> true)
@@ -77,7 +81,7 @@ public class OutroDocumentoController {
 		
     	OutroDocumento outroDocumento = mapper.map(outroDocumentoDto, OutroDocumento.class);
 				
-		UnidadeProdutoraEnum unidadeProdutora = UnidadeProdutoraEnum.getByCodigo(outroDocumentoDto.getUnidadeProdutoraId());
+    	UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(outroDocumentoDto.getUnidadeProdutoraId()).get();
 		outroDocumento.setUnidadeProdutora(unidadeProdutora);
 		
 		Empregado empregado = empregadoRepository.findById(outroDocumentoDto.getEmpregadoId()).get();

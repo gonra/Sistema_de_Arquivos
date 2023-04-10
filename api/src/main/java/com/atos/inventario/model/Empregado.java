@@ -55,7 +55,7 @@ public class Empregado implements UserDetails, Serializable {
 	@JoinTable(name = "TB_ROLES_EMPREGADO",
 		joinColumns = @JoinColumn(name = "idEmpregado"),
 		inverseJoinColumns = @JoinColumn(name = "roleId"))
-	private List<RoleEmpregado> roles;
+	private List<RoleEmpregado> roles = new ArrayList<RoleEmpregado>();
 
 	
 	public Long getIdEmpregado() {
@@ -76,6 +76,7 @@ public class Empregado implements UserDetails, Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	public String getSenha() {
 		return senha;
 	}

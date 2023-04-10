@@ -18,14 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atos.inventario.atosdto.FiltroPesquisaDTO;
 import com.atos.inventario.atosdto.LicitacaoDTO;
-import com.atos.inventario.enums.UnidadeProdutoraEnum;
 import com.atos.inventario.model.ClassificacaoDocumental;
 import com.atos.inventario.model.Empregado;
 import com.atos.inventario.model.Licitacao;
 import com.atos.inventario.model.Localizacao;
+import com.atos.inventario.model.UnidadeProdutora;
 import com.atos.inventario.repositories.ClassificacaoDocumentalRepository;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.LicitacaoRepository;
+import com.atos.inventario.repositories.UnidadeProdutoraRepository;
 import com.atos.inventario.services.LocalizacaoService;
 
 @RestController
@@ -38,6 +39,9 @@ public class LicitacaoController {
 	
 	@Autowired
 	ClassificacaoDocumentalRepository classificacaoDocumentalRepository;
+	
+	@Autowired
+	UnidadeProdutoraRepository unidadeProdutoraRepository;
 	
 	@Autowired
 	EmpregadoRepository empregadoRepository;
@@ -63,7 +67,7 @@ public class LicitacaoController {
 		 * */
 		
 		List<Licitacao> licitacoes = licitacaoRepository.findAll().stream()
-				.filter(filtro.getUnidadeProdutora() != null ? l -> l.getUnidadeProdutora().getCodigo().equals(filtro.getUnidadeProdutora()) : l -> true)
+				.filter(filtro.getUnidadeProdutora() != null ? l -> l.getUnidadeProdutora().getIdUnidadeProdutora().equals(filtro.getUnidadeProdutora()) : l -> true)
 				.filter(filtro.getClassificacaoDocumental() != null ? l -> l.getClassificacaoDocumental().getCodigoClassificacaoDocumental().equals(filtro.getClassificacaoDocumental()) : l -> true)
 				.filter(filtro.getDataLimite() != null ? l -> l.getDataLimite().equals(filtro.getDataLimite()) : l -> true)
 				.filter(filtro.getLocalizacao() != null ? l -> l.getLocalizacao().getIdLocalizacao() == Long.parseLong(filtro.getLocalizacao()) : l -> true)
@@ -79,7 +83,7 @@ public class LicitacaoController {
 		
 		Licitacao licitacao = mapper.map(licitacaoDto, Licitacao.class);
 		
-		UnidadeProdutoraEnum unidadeProdutora = UnidadeProdutoraEnum.getByCodigo(licitacaoDto.getUnidadeProdutoraId());
+		UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(licitacaoDto.getUnidadeProdutoraId()).get();
 		licitacao.setUnidadeProdutora(unidadeProdutora);
 		
 		Empregado empregado = empregadoRepository.findById(licitacaoDto.getEmpregadoId()).get();

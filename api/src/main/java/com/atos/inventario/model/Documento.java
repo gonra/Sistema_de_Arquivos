@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-import com.atos.inventario.enums.UnidadeProdutoraEnum;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -15,21 +15,22 @@ public abstract class Documento {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, unique = true)
-	private UnidadeProdutoraEnum unidadeProdutora;
+	private Date dataCriacao;
+	private Date dataLimite;
+	private String documentoEncaminhamento;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cod_unidade_produtora", referencedColumnName = "idUnidadeProdutora")
+	private UnidadeProdutora unidadeProdutora;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cod_classificaco_documental", referencedColumnName = "codigoClassificacaoDocumental")
 	private ClassificacaoDocumental classificacaoDocumental;
-	
-	private Date dataLimite;
+
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cod_empregado", referencedColumnName = "idEmpregado")
 	private Empregado empregado;
-	
-	private Date dataCriacao;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cod_localizacao", referencedColumnName = "idLocalizacao")
@@ -42,15 +43,20 @@ public abstract class Documento {
 		this.id = id;
 	}
 	
-	public UnidadeProdutoraEnum getUnidadeProdutora() {
+	@JsonIgnore
+	public UnidadeProdutora getUnidadeProdutora() {
 		return unidadeProdutora;
 	}
-	public String getUnidadeProdutoraDesc() {
-		return unidadeProdutora.getUnidadeProdutora();
+	public Long getUnidadeProdutoraId() {
+		return unidadeProdutora.getIdUnidadeProdutora();
 	}
-	public void setUnidadeProdutora(UnidadeProdutoraEnum unidadeProdutora) {
+	public String getUnidadeProdutoraDesc() {
+		return unidadeProdutora.getDescricao();
+	}
+	public void setUnidadeProdutora(UnidadeProdutora unidadeProdutora) {
 		this.unidadeProdutora = unidadeProdutora;
 	}
+	
 	@JsonIgnore
 	public ClassificacaoDocumental getClassificacaoDocumental() {
 		return classificacaoDocumental;
@@ -94,6 +100,12 @@ public abstract class Documento {
 	}
 	public void setLocalizacao(Localizacao localizacao) {
 		this.localizacao = localizacao;
+	}
+	public String getDocumentoEncaminhamento() {
+		return documentoEncaminhamento;
+	}
+	public void setDocumentoEncaminhamento(String documentoEncaminhamento) {
+		this.documentoEncaminhamento = documentoEncaminhamento;
 	}
 	
 }

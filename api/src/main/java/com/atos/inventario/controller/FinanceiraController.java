@@ -18,14 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atos.inventario.atosdto.FiltroPesquisaDTO;
 import com.atos.inventario.atosdto.FinanceiraDTO;
-import com.atos.inventario.enums.UnidadeProdutoraEnum;
 import com.atos.inventario.model.ClassificacaoDocumental;
 import com.atos.inventario.model.Empregado;
 import com.atos.inventario.model.Financeira;
 import com.atos.inventario.model.Localizacao;
+import com.atos.inventario.model.UnidadeProdutora;
 import com.atos.inventario.repositories.ClassificacaoDocumentalRepository;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.FinanceiraRepository;
+import com.atos.inventario.repositories.UnidadeProdutoraRepository;
 import com.atos.inventario.services.LocalizacaoService;
 
 @RestController
@@ -38,6 +39,9 @@ public class FinanceiraController {
 	
 	@Autowired
 	ClassificacaoDocumentalRepository classificacaoDocumentalRepository;
+	
+	@Autowired
+	UnidadeProdutoraRepository unidadeProdutoraRepository;
 	
 	@Autowired
 	EmpregadoRepository empregadoRepository;
@@ -62,7 +66,7 @@ public class FinanceiraController {
 		 * */
 
 		List<Financeira> financeiras = financeiraRepository.findAll().stream()
-				.filter(filtro.getUnidadeProdutora() != null ? f -> f.getUnidadeProdutora().getCodigo().equals(filtro.getUnidadeProdutora()) : f -> true)
+				.filter(filtro.getUnidadeProdutora() != null ? f -> f.getUnidadeProdutora().getIdUnidadeProdutora().equals(filtro.getUnidadeProdutora()) : f -> true)
 				.filter(filtro.getClassificacaoDocumental() != null ? f -> f.getClassificacaoDocumental().getCodigoClassificacaoDocumental().equals(filtro.getClassificacaoDocumental()) : c -> true)
 				.filter(filtro.getDataLimite() != null ? f -> f.getDataLimite().equals(filtro.getDataLimite()) : c -> true)
 				.filter(filtro.getLocalizacao() != null ? f -> f.getLocalizacao().getIdLocalizacao() == Long.parseLong(filtro.getLocalizacao()) : c -> true)
@@ -77,7 +81,7 @@ public class FinanceiraController {
 		
 		Financeira financeira = mapper.map(financeiraDto, Financeira.class);
 		
-		UnidadeProdutoraEnum unidadeProdutora = UnidadeProdutoraEnum.getByCodigo(financeiraDto.getUnidadeProdutoraId());
+		UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(financeiraDto.getUnidadeProdutoraId()).get();
 		financeira.setUnidadeProdutora(unidadeProdutora);
 		
 		Empregado empregado = empregadoRepository.findById(financeiraDto.getEmpregadoId()).get();

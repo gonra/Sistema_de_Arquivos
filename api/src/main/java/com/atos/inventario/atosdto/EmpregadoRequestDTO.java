@@ -3,8 +3,10 @@ package com.atos.inventario.atosdto;
 import java.io.Serializable;
 
 import com.atos.inventario.enums.DepartamentoEmpregadoEnum;
+import com.atos.inventario.model.Empregado;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class EmpregadoDTO implements Serializable{
+public class EmpregadoRequestDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -67,9 +69,14 @@ public class EmpregadoDTO implements Serializable{
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
-	
+
+	public String getSenha() {
+		return senha;
+	}
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
 	
 }

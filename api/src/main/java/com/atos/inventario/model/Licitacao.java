@@ -14,7 +14,6 @@ public class Licitacao extends Documento implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private String documentoEncaminhamento;
 	private String numeroCaixaEscritorioOrigem;
 	private String numeroCaixaArquivoCustodia;
 	private String numeroProcessoLicitatorio;
@@ -43,14 +42,6 @@ public class Licitacao extends Documento implements Serializable{
 
 	public void setNumeroPec(String numeroPec) {
 		this.numeroPec = numeroPec;
-	}
-
-	public String getDocumentoEncaminhamento() {
-		return documentoEncaminhamento;
-	}
-
-	public void setDocumentoEncaminhamento(String documentoEncaminhamento) {
-		this.documentoEncaminhamento = documentoEncaminhamento;
 	}
 
 	public String getNumeroCaixaEscritorioOrigem() {

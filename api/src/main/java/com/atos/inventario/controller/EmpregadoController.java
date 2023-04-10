@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.atos.inventario.atosdto.EmpregadoDTO;
+import com.atos.inventario.atosdto.EmpregadoRequestDTO;
+import com.atos.inventario.atosdto.EmpregadoResponseDTO;
 import com.atos.inventario.atosdto.FiltroPesquisaEmpregadoDTO;
 import com.atos.inventario.atosdto.LoginRequestDTO;
 import com.atos.inventario.atosdto.LoginResponseDTO;
 import com.atos.inventario.enums.DepartamentoEmpregadoEnum;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,11 +21,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.atos.inventario.model.Empregado;
 import com.atos.inventario.repositories.EmpregadoRepository;
+import com.atos.inventario.repositories.RoleEmpregadoRepository;
 import com.atos.inventario.security.JwtUtils;
 import com.atos.inventario.services.UserService;
 
@@ -46,11 +47,18 @@ public class EmpregadoController {
 	private EmpregadoRepository empregadoRepository;
 	
 	@Autowired
+	private RoleEmpregadoRepository roleEmpregadoRepository;
+	
+	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private PasswordEncoder passEncoder;
 
 	@GetMapping(value = "/empregado" )
 	public ResponseEntity<Empregado> buscarEmpregado(@RequestParam String matricula, @RequestParam String senha) {
-		Optional<Empregado> empregado = empregadoRepository.findByMatriculaSenha(matricula, senha);
+		String senhaCriptografada = passEncoder.encode(senha);
+		Optional<Empregado> empregado = empregadoRepository.findByMatriculaSenha(matricula, senhaCriptografada);
 		if (empregado.isPresent()) {
 			return ResponseEntity.ok(empregado.get());
 		} else {
@@ -60,7 +68,7 @@ public class EmpregadoController {
 	}
 
 	@PostMapping(value = "/empregado/listar")
-	public ResponseEntity<List<EmpregadoDTO>> listarEmpregados(@RequestBody(required = false) FiltroPesquisaEmpregadoDTO filtro){
+	public ResponseEntity<List<EmpregadoResponseDTO>> listarEmpregados(@RequestBody(required = false) FiltroPesquisaEmpregadoDTO filtro){
 
 		List<Empregado> empregados = new ArrayList<>();
 		if (filtro == null) {
@@ -78,25 +86,35 @@ public class EmpregadoController {
 			return ResponseEntity.notFound().build();
 		}
 		
-		ModelMapper mapper = new ModelMapper();
-		List<EmpregadoDTO> listEmpregados = empregados.stream()
-				  .map(x -> mapper.map(x, EmpregadoDTO.class))
+		List<EmpregadoResponseDTO> listEmpregados = empregados.stream()
+				  .map(x -> new EmpregadoResponseDTO(x))
 				  .collect(Collectors.toList());
 		
 		return ResponseEntity.ok(listEmpregados);
 	}
 
 	@PostMapping("/empregado/cadastrar")
-	public ResponseEntity<Empregado> cadastrarEmpregado(@RequestBody EmpregadoDTO empregadoDTO){
+	public ResponseEntity<EmpregadoResponseDTO> cadastrarEmpregado(@RequestBody EmpregadoRequestDTO dto){
 
 		Empregado empregado = new Empregado();
-		empregado.setNome(empregadoDTO.getNome());
-		empregado.setMatricula(empregadoDTO.getMatricula());
-		empregado.setEmail(empregadoDTO.getEmail());
-		empregado.setDepartamento(DepartamentoEmpregadoEnum.getByCodigo(empregadoDTO.getDepartamentoId()));
+		empregado.setMatricula(dto.getMatricula());
+		empregado.setNome(dto.getNome());
+		empregado.setEmail(dto.getEmail());
+		empregado.setAtivo(dto.getAtivo());
 		
-
-		return ResponseEntity.ok(empregadoRepository.save(empregado));
+		empregado.setDepartamento(DepartamentoEmpregadoEnum.getByCodigo(dto.getDepartamentoId()));
+		
+		empregado.getRoles().add(roleEmpregadoRepository.getById(2L)); // USER
+		
+		String senha1 = dto.getSenha();
+	    String senhaCriptografada = passEncoder.encode(senha1);
+	    empregado.setSenha(senhaCriptografada);
+		Empregado e2 = empregadoRepository.save(empregado);
+		
+		if (e2 == null) { 
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(new EmpregadoResponseDTO(e2));
 	}
 
 
@@ -143,20 +161,22 @@ public class EmpregadoController {
 	}
 
 	@GetMapping("/user")
-	public ResponseEntity<Empregado> getActualUser() {
-		Optional<Empregado> p = userService.getUserWithAuthorities();
-		if (p.isPresent()) {
-			return ResponseEntity.ok(p.get());
+	public ResponseEntity<EmpregadoResponseDTO> getActualUser() {
+		Optional<Empregado> empregado = userService.getUserWithAuthorities();
+		if (empregado.isPresent()) {
+			EmpregadoResponseDTO dto = new EmpregadoResponseDTO(empregado.get());
+			return ResponseEntity.ok(dto);
 		} else { 
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
 	@GetMapping(value = "/empregado/{id}" )
-	public ResponseEntity<Empregado> getUserById(@PathVariable("id") Long id ) {
+	public ResponseEntity<EmpregadoResponseDTO> getUserById(@PathVariable("id") Long id ) {
 		Optional<Empregado> empregado = empregadoRepository.findById(id);
 		if (empregado.isPresent()) {
-			return ResponseEntity.ok(empregado.get());
+			EmpregadoResponseDTO dto = new EmpregadoResponseDTO(empregado.get());
+			return ResponseEntity.ok(dto);
 		} else {
 			return ResponseEntity.notFound().build();
 		}

@@ -18,14 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.atos.inventario.atosdto.FiltroPesquisaDTO;
 import com.atos.inventario.atosdto.PastaFuncionalDTO;
-import com.atos.inventario.enums.UnidadeProdutoraEnum;
 import com.atos.inventario.model.ClassificacaoDocumental;
 import com.atos.inventario.model.Empregado;
 import com.atos.inventario.model.Localizacao;
 import com.atos.inventario.model.PastaFuncional;
+import com.atos.inventario.model.UnidadeProdutora;
 import com.atos.inventario.repositories.ClassificacaoDocumentalRepository;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.PastaFuncionalRepository;
+import com.atos.inventario.repositories.UnidadeProdutoraRepository;
 import com.atos.inventario.services.LocalizacaoService;
 
 @RestController
@@ -38,6 +39,9 @@ public class PastaFuncionalController {
 	
 	@Autowired
 	ClassificacaoDocumentalRepository classificacaoDocumentalRepository;
+	
+	@Autowired
+	UnidadeProdutoraRepository unidadeProdutoraRepository;
 	
 	@Autowired
 	EmpregadoRepository empregadoRepository;
@@ -62,7 +66,7 @@ public class PastaFuncionalController {
 		 * */
 		
 		List<PastaFuncional> pastasFuncionais = pastaFuncionalRepository.findAll().stream()
-				.filter(filtro.getUnidadeProdutora() != null ? p -> p.getUnidadeProdutora().getCodigo().equals(filtro.getUnidadeProdutora()) : p -> true)
+				.filter(filtro.getUnidadeProdutora() != null ? p -> p.getUnidadeProdutora().getIdUnidadeProdutora().equals(filtro.getUnidadeProdutora()) : p -> true)
 				.filter(filtro.getClassificacaoDocumental() != null ? p -> p.getClassificacaoDocumental().getCodigoClassificacaoDocumental().equals(filtro.getClassificacaoDocumental()) : p -> true)
 				.filter(filtro.getDataLimite() != null ? p -> p.getDataLimite().equals(filtro.getDataLimite()) : p -> true)
 				.filter(filtro.getLocalizacao() != null ? p -> p.getLocalizacao().getIdLocalizacao() == Long.parseLong(filtro.getLocalizacao()) : p -> true)
@@ -78,7 +82,7 @@ public class PastaFuncionalController {
 
 		PastaFuncional pastaFuncional = mapper.map(pastaFuncionalDto, PastaFuncional.class);
 
-		UnidadeProdutoraEnum unidadeProdutora = UnidadeProdutoraEnum.getByCodigo(pastaFuncionalDto.getUnidadeProdutoraId());
+		UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(pastaFuncionalDto.getUnidadeProdutoraId()).get();
 		pastaFuncional.setUnidadeProdutora(unidadeProdutora);
 		
 		Empregado empregado = empregadoRepository.findById(pastaFuncionalDto.getEmpregadoId()).get();

@@ -20,5 +20,4 @@ public enum RolesEnum {
 		return rolId;
 	}
 
-	
 }
