@@ -5,7 +5,7 @@ public class FiltroPesquisaEmpregadoDTO {
 	private String nome;
 	private String matricula;
 	private String email;
-	private String unidadeDepartamento;
+	private Long departamentoId;
     private Boolean ativo;
 	
 	public String getNome() {
@@ -32,12 +32,12 @@ public class FiltroPesquisaEmpregadoDTO {
 		this.email = email;
 	}
 
-	public String getUnidadeDepartamento() {
-		return unidadeDepartamento;
+	public Long getDepartamentoId() {
+		return departamentoId;
 	}
 
-	public void setUnidadeDepartamento(String unidadeDepartamento) {
-		this.unidadeDepartamento = unidadeDepartamento;
+	public void setDepartamentoId(Long departamentoId) {
+		this.departamentoId = departamentoId;
 	}
 
 	public Boolean getAtivo() {

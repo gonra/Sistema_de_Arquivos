@@ -1,23 +1,23 @@
 package com.atos.inventario.enums;
 
 public enum DepartamentoEmpregadoEnum {
-	GERENCIA (1,"GERE","GERENCIA"),
-	COMPRAS (2,"COMP","COMPRAS"),
-	VENDAS (3,"VEND","VENDAS"),
-	RH (4,"RH","RECURSOS HUMANOS"),
-	MARKETING (5,"MARK","MARKETING");
+	GERENCIA (1L,"GERE","GERENCIA"),
+	COMPRAS (2L,"COMP","COMPRAS"),
+	VENDAS (3L,"VEND","VENDAS"),
+	RH (4L,"RH","RECURSOS HUMANOS"),
+	MARKETING (5L,"MARK","MARKETING");
 	
-	private int idDepartamento;
+	private Long idDepartamento;
 	private String sigla;
 	private String descricao;
 	
-	private DepartamentoEmpregadoEnum(int id, String sigla, String descricao) {
+	private DepartamentoEmpregadoEnum(Long id, String sigla, String descricao) {
 		this.idDepartamento = id;
 		this.sigla = sigla;
 		this.descricao = descricao;
 	}
 
-	public int getIdDepartamento() {
+	public Long getIdDepartamento() {
 		return idDepartamento;
 	}
 

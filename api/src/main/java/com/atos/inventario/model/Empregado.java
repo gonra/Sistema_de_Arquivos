@@ -102,7 +102,7 @@ public class Empregado implements UserDetails, Serializable {
 	public void setDataLogin(Date dataLogin) {
 		this.dataLogin = dataLogin;
 	}
-	public int getDepartamentoId() {
+	public Long getDepartamentoId() {
 		return departamento.getIdDepartamento();
 	}
 	@JsonIgnore

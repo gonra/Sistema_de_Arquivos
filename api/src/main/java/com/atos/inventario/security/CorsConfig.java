@@ -18,11 +18,11 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("*"); // e.g. http://domain1.com
+        //config.addAllowedOrigin("*"); // e.g. http://domain1.com
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
-        config.setAllowedOrigins(List.of("http://localhost:4200"));
-
+        //config.setAllowedOrigins(List.of("http://localhost:4200","http://192.168.199.130:4200' "));
+        config.setAllowedOriginPatterns(List.of("*"));
         source.registerCorsConfiguration("/api/**", config);
         return new CorsFilter(source);
     }

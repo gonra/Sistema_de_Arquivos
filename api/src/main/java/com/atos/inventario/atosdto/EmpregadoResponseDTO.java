@@ -15,7 +15,7 @@ public class EmpregadoResponseDTO implements Serializable{
 	private String matricula;
 	private String nome;
 	private String email;
-	private int departamentoId;
+	private Long departamentoId;
 	private String departamentoDesc;
 	private Boolean ativo;
 	private List<String> roles = new ArrayList<String>();
@@ -66,11 +66,11 @@ public class EmpregadoResponseDTO implements Serializable{
 		this.email = email;
 	}
 	
-	public int getDepartamentoId() {
+	public Long getDepartamentoId() {
 		return departamentoId;
 	}
 
-	public void setDepartamentoId(int departamentoId) {
+	public void setDepartamentoId(Long departamentoId) {
 		this.departamentoId = departamentoId;
 	}
 

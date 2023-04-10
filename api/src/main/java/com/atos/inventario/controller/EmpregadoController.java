@@ -78,7 +78,7 @@ public class EmpregadoController {
 				.filter( filtro.getNome() != null ? e -> e.getNome().toLowerCase().contains(filtro.getNome().toLowerCase()) : e -> true )
 				.filter( filtro.getMatricula() != null ? e -> e.getMatricula().toLowerCase().contains(filtro.getMatricula().toLowerCase()) : e -> true)
 				.filter( filtro.getEmail() != null ? e -> e.getEmail().toLowerCase().contains(filtro.getEmail().toLowerCase()) : e -> true )
-				.filter( filtro.getUnidadeDepartamento() != null ? e -> e.getDepartamentoDesc().toLowerCase().contains(filtro.getUnidadeDepartamento().toLowerCase()) : e -> true )
+				.filter( filtro.getDepartamentoId() != null ? e -> e.getDepartamentoId() == filtro.getDepartamentoId() : e -> true )
 				.collect(Collectors.toList());
 		}
 		
