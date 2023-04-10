@@ -1,1 +1,34 @@
-<p>document works!</p>
+<div class="borda">
+    <h2 class="text-primary text-center">Gestão de Documentos</h2>
+
+    <div class="borda">
+        <select #lista class="form-select" (change)="setDocSelected(lista.value)">
+            <option value="">SELECIONE</option>
+            <option value="CONTRATO">Contrato</option>
+            <option value="LICITACAO">Licitação</option>
+            <option value="FINANCEIRA">Financeira</option>
+            <option value="PASTA">Pasta Funcional</option>
+            <option value="OUTRO">Outros Assuntos</option>
+        </select>
+    </div>
+
+    <div class="mb-3" *ngIf="docSelecionado">
+
+        <section *ngIf="action=='list'">
+            <button class="btn btn-primary" (click)="actionDocument('create')">
+                Novo Documento
+            </button>
+            <app-document-lista [docSelecionado]="docSelecionado" (backToDocument)="actionDocument($event)"
+                (documentId)="sendIdDocument($event)"></app-document-lista>
+        </section>
+        <section *ngIf="action=='create'">
+            <app-document-incluir [docSelecionado]="docSelecionado"
+                (backToDocument)="actionDocument($event)"></app-document-incluir>
+        </section>
+        <section *ngIf="action=='edit'">
+            <app-document-alterar [docSelecionado]="docSelecionado" [documentId]="documentId"
+                (backToDocument)="actionDocument($event)"></app-document-alterar>
+        </section>
+    </div>
+
+</div>

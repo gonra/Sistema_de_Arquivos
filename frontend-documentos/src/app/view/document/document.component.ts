@@ -1,15 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 @Component({
   selector: 'app-document',
   templateUrl: './document.component.html',
   styleUrls: ['./document.component.css']
 })
-export class DocumentComponent implements OnInit {
+export class DocumentComponent {
 
-  constructor() { }
+  action: string = "list";
+  documentId: number = -1;
+  docSelecionado!: string;
 
-  ngOnInit(): void {
+  setDocSelected(documento: string): void {
+    this.docSelecionado = documento;
+  }
+
+  actionDocument(action: string): void {
+    this.action = action;
+  }
+
+  actionEditDocument(action: string, document: Document): void {
+    this.action = action;
+  }
+
+  sendIdDocument(idDocumento: number) {
+    if (this.action == 'edit') {
+      this.documentId = idDocumento;
+    }
   }
 
 }

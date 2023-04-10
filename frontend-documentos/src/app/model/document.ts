@@ -1,3 +1,5 @@
+import { Location } from "./localizacao";
+
 export interface Document {
     id?:Number,
     unidadeProdutora: String,

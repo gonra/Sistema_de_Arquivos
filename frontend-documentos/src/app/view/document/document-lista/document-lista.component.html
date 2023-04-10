@@ -1,0 +1,38 @@
+<table mat-table [dataSource]="documents" class="mat-elevation-z8">
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let documentItem"> {{documentItem.id}} </td>
+    </ng-container>
+
+  <!-- Nome Column -->
+  <ng-container matColumnDef="unidadeProdutora">
+    <th mat-header-cell *matHeaderCellDef> UnidadeProdutora </th>
+    <td mat-cell *matCellDef="let documentItem"> {{documentItem.unidadeProdutora}} </td>
+  </ng-container>
+
+  <!-- Action Column -->
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef> Edit </th>
+    <td mat-cell *matCellDef="let documentItem" >
+      <button mat-icon-button matTooltip="Click to Edit" class="iconbutton"
+        color="primary" (click)="editDocument(documentItem.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let documentItem" >
+      <button mat-icon-button matTooltip="Click to Delete" class="iconbutton"
+        color="warn" (click)="deleteDocument(documentItem.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+

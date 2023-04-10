@@ -30,6 +30,10 @@ import {UserListaComponent} from './view/user/user-lista/user-lista.component';
 import {UserAlterarComponent} from './view/user/user-alterar/user-alterar.component';
 import { EditUserLoggedComponent } from './view/user/edit-user-logged/edit-user-logged.component';
 import {NgOptimizedImage} from "@angular/common";
+import { DocumentListaComponent } from './view/document/document-lista/document-lista.component';
+import { DocumentIncluirComponent } from './view/document/document-incluir/document-incluir.component';
+import { DocumentAlterarComponent } from './view/document/document-alterar/document-alterar.component';
+import { DocumentExcluirComponent } from './view/document/document-excluir/document-excluir.component';
 
 
 @NgModule({
@@ -45,7 +49,11 @@ import {NgOptimizedImage} from "@angular/common";
         UserIncluirComponent,
         UserListaComponent,
         UserAlterarComponent,
-        EditUserLoggedComponent
+        EditUserLoggedComponent,
+        DocumentListaComponent,
+        DocumentIncluirComponent,
+        DocumentAlterarComponent,
+        DocumentExcluirComponent
     ],
     imports: [
         BrowserModule,
