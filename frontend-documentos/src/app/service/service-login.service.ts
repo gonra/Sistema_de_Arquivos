@@ -65,7 +65,7 @@ export class ServiceLoginService {
 
     isAdmin(){
         let user = JSON.parse(localStorage.getItem('user')!);
-        return user?.authorities.filter((u: { authority: any; }) => u.authority == 'ADMIN') != 0;
+        return user?.roles.filter((u: string | string[]) => u.includes('ADMIN'));
     }
 
     doDataUserLogged() {

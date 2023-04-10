@@ -3,6 +3,7 @@ export interface User {
     matricula:String,
     nome:String,
     senha:String,
+    departamentoId: Number,
     dataLogin:String,
     ativo:Boolean
 }

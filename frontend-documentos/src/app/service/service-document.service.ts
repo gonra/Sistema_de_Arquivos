@@ -7,6 +7,7 @@ import { Parametros } from '../constant/parametros';
 import { Document } from '../model/document';
 import { Location } from '../model/localizacao';
 import { User } from '../model/user';
+import { FiltroPesquisaDocumentoDTO } from '../model/filtro';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class ServiceDocumentService {
     };
   }
 
-  listarDocumento(filtro: any, tipoDoc: string) {
+  listarDocumento(filtro: FiltroPesquisaDocumentoDTO, tipoDoc: string):any {
 
     if (tipoDoc == 'CONTRATO') {
       return this.httpClient.post<Document[]>(
@@ -66,11 +67,9 @@ export class ServiceDocumentService {
         Parametros.apiurl + '/api/outro/listar', filtro, this.httpOptions);
 
     }
-    return this.httpClient.post<Document[]>(
-      Parametros.apiurl + '/api/outro/listar', filtro, this.httpOptions);
   }
 
-  guardarDocumento(doc: Document, tipoDoc: string) {
+  guardarDocumento(doc: Document, tipoDoc: string):any {
 
     if (tipoDoc == 'CONTRATO') {
       return this.httpClient.post<Document[]>(
@@ -101,14 +100,12 @@ export class ServiceDocumentService {
         Parametros.apiurl + '/api/outro/cadastrar', doc, this.httpOptions);
 
     }
-    return this.httpClient.post<Document[]>(
-      Parametros.apiurl + '/api/outro/cadastrar', doc, this.httpOptions);
+    return {};
   }
 
-  lerDocumento(id: Number, tipoDoc: string) {
+  lerDocumento(id: Number, tipoDoc: string):any {
 
     if (tipoDoc == 'CONTRATO') {
-
       return this.httpClient.get<Document[]>(
         Parametros.apiurl + '/api/contrato/' + id, this.httpOptions);
 
@@ -137,11 +134,10 @@ export class ServiceDocumentService {
         Parametros.apiurl + '/api/outro/' + id, this.httpOptions);
 
     }
-    return this.httpClient.get<Document[]>(
-      Parametros.apiurl + '/api/outro/' + id, this.httpOptions);
+    return {};
   }
 
-  deletarDocumento(id: Number, tipoDoc: string) {
+  deletarDocumento(id: Number, tipoDoc: string):any {
 
     if (tipoDoc == 'CONTRATO') {
       return this.httpClient.delete(
@@ -172,11 +168,10 @@ export class ServiceDocumentService {
         Parametros.apiurl + '/api/outro/' + id, this.httpOptions);
 
     }
-    return this.httpClient.delete(
-      Parametros.apiurl + '/api/outro/' + id, this.httpOptions);
+    return {}
   }
 
-  salvarDocumento(id: Number, documento: Document, tipoDoc: string) {
+  salvarDocumento(id: Number, documento: Document, tipoDoc: string):any {
 
     if (tipoDoc == 'CONTRATO') {
       return this.httpClient.put(
@@ -207,8 +202,7 @@ export class ServiceDocumentService {
         Parametros.apiurl + '/api/outro/' + id, documento, this.httpOptions);
 
     }
-    return this.httpClient.put(
-      Parametros.apiurl + '/api/outro/' + id, documento, this.httpOptions);
+    return {};
   }
 
 }

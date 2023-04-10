@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/model/user';
 import { ServiceUserService } from 'src/app/service/service-user.service';
 import { ServiceLoginService } from 'src/app/service/service-login.service';
+import { FiltroPesquisaEmpregadoDTO } from 'src/app/model/filtro';
 
 @Component({
   selector: 'app-user-lista',
@@ -22,6 +23,7 @@ export class UserListaComponent implements OnInit {
   matricula: string = "";
   nome: string = "";
   unidadeDepartamento: string = "";
+  filtro: FiltroPesquisaEmpregadoDTO = {};
 
   
   displayedColumns = ['matricula', 'nome', 'edit', 'delete']

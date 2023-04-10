@@ -82,7 +82,9 @@ export class DocumentAlterarComponent implements OnInit {
       unidadeProdutora: ['']
     });
 
-    this.documentService.lerDocumento(id, this.docSelecionado).subscribe(document => this.formUpdateDocument.patchValue(document));
+    this.documentService
+      .lerDocumento(id, this.docSelecionado)
+      .subscribe((x: any) => this.formUpdateDocument.patchValue(x));
 
   }
 
