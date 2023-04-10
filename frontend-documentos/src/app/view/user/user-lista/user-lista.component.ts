@@ -26,7 +26,7 @@ export class UserListaComponent implements OnInit {
   filtro: FiltroPesquisaEmpregadoDTO = {};
 
   
-  displayedColumns = ['matricula', 'nome', 'edit', 'delete']
+  displayedColumns = ['matricula', 'nome', 'departamento','edit', 'delete']
 
   constructor(private userService: ServiceUserService) {
       this.users = userService.listUsers(this.ativo, this.email, this.matricula, this.nome, this.unidadeDepartamento);
