@@ -8,15 +8,15 @@
         </div>
 
         <div *ngIf="menuitem == 1">
-            <app-document></app-document>
+            <app-document-incluir docSelecionado="CONTRATO"></app-document-incluir>
         </div>
 
         <div *ngIf="menuitem == 2">
-            <app-report></app-report>
+            <app-document ></app-document>
         </div>
 
         <div *ngIf="menuitem == 3">
-            <app-search></app-search>
+            <app-report></app-report>
         </div>
 
         <div *ngIf="menuitem == 4 && isAdmin()">

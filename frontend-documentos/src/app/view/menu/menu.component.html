@@ -5,24 +5,20 @@
 
     <mat-nav-list  class="menu" role="navigation">
         <a mat-list-item [ngClass]="active_menu(1) ? 'active_menu' : ''" (click)="setMenu(1)" [activated]="active_menu(1)">
-<!--            <mat-icon fontIcon="">folder</mat-icon>-->
-            <span>Cadastro Documento</span>
+            <span><mat-icon id="newdoc">insert_drive_file</mat-icon>Ingresar Documento</span>
         </a>
         <a mat-list-item [ngClass]="active_menu(2) ? 'active_menu' : ''" (click)="setMenu(2)" [activated]="active_menu(2)">
-<!--            <mat-icon>search</mat-icon>-->
-            <span>Pesquisar</span>
+            <span><mat-icon>search</mat-icon>Pesquisar Documento</span>
         </a>
         <a mat-list-item [ngClass]="active_menu(3) ? 'active_menu' : ''" (click)="setMenu(3)" [activated]="active_menu(3)">
-<!--            <mat-icon>cloud_download</mat-icon>-->
-            <span>Relatórios</span>
+            <span><mat-icon>insert_chart</mat-icon>Relatórios</span>
         </a>
         <a *ngIf="isAdmin()" mat-list-item [ngClass]="active_menu(4) ? 'active_menu' : ''" (click)="setMenu(4)" [activated]="active_menu(4)">
-<!--            <mat-icon>people</mat-icon>-->
-            <span>Usuários</span>
+            <span><mat-icon>people</mat-icon>Usuários</span>
         </a>
     </mat-nav-list>
 
 
-    <mat-icon title="Logout" (click)="setMenu(5)" id="settings">settings</mat-icon>
+    <mat-icon title="Trocar senha" (click)="setMenu(5)" id="settings">settings</mat-icon>
     <mat-icon title="Logout" (click)="logout()" id="exit">exit_to_app</mat-icon>
 </nav>

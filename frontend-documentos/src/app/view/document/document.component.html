@@ -15,15 +15,8 @@
     <div class="mb-3" *ngIf="docSelecionado">
 
         <section *ngIf="action=='list'">
-            <button class="btn btn-primary" (click)="actionDocument('create')">
-                Novo Documento
-            </button>
-            <app-document-lista [docSelecionado]="docSelecionado" (backToDocument)="actionDocument($event)"
+            <app-document-lista id="listaprincipal" [docSelecionado]="docSelecionado" (backToDocument)="actionDocument($event)"
                 (documentId)="sendIdDocument($event)"></app-document-lista>
-        </section>
-        <section *ngIf="action=='create'">
-            <app-document-incluir [docSelecionado]="docSelecionado"
-                (backToDocument)="actionDocument($event)"></app-document-incluir>
         </section>
         <section *ngIf="action=='edit'">
             <app-document-alterar [docSelecionado]="docSelecionado" [documentId]="documentId"
