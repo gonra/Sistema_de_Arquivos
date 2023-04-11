@@ -19,7 +19,11 @@ export class UserIncluirComponent implements OnInit {
     public userService: ServiceUserService) {
       this.formCreateUser = new FormGroup({
         matricula:  new FormControl(''),
-        nome:  new FormControl('')
+        nome:  new FormControl(''),
+        email: new FormControl(''),
+        departamentoId: new FormControl(''),
+        ativo: new FormControl(''),
+        senha: new FormControl('')
       });
 
   }
@@ -27,7 +31,11 @@ export class UserIncluirComponent implements OnInit {
   ngOnInit(): void {
     this.formCreateUser = this.formBuilder.group({
       matricula:  [''],
-      nome:  ['']
+      nome:  [''],
+      email: [''],
+      departamentoId: [''],
+      ativo: [''],
+      senha: ['']
     })
   }
 

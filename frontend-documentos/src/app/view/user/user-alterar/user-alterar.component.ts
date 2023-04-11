@@ -19,7 +19,11 @@ export class UserAlterarComponent {
     public userService: ServiceUserService) {
       this.formUpdateUser = new FormGroup({
         matricula:  new FormControl(''),
-        nome:  new FormControl('')
+        nome:  new FormControl(''),
+        email: new FormControl(''),
+        departamentoId: new FormControl(''),
+        ativo: new FormControl(''),
+        senha: new FormControl('')
       });
   }
   
@@ -28,7 +32,10 @@ export class UserAlterarComponent {
   }
 
   update() {
-    this.backToUser.emit("list");
+    this.userService.updateUser(this.userId, this.formUpdateUser.value).subscribe(() => {
+      console.warn("Empregado atualizado com sucesso");
+      this.back();
+    })
   }
 
   ngOnInit() {
@@ -40,7 +47,11 @@ export class UserAlterarComponent {
   loadDataUser(id: number) {
     this.formUpdateUser = this.formBuilder.group({
       matricula:  [''],
-      nome:  ['']
+      nome:  [''],
+      email: [''],
+      departamentoId: [''],
+      ativo: [''],
+      senha: ['']
     });
 
     //this.userService.loadUser(id).subscribe((user: any) => {
@@ -49,5 +60,6 @@ export class UserAlterarComponent {
 
     this.userService.loadUser(id).subscribe(user => this.formUpdateUser.patchValue(user));
 
+    
   }
 }
