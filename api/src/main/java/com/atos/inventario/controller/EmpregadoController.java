@@ -8,10 +8,12 @@ import java.util.stream.Collectors;
 import com.atos.inventario.atosdto.EmpregadoRequestDTO;
 import com.atos.inventario.atosdto.EmpregadoResponseDTO;
 import com.atos.inventario.atosdto.FiltroPesquisaEmpregadoDTO;
+import com.atos.inventario.atosdto.FinanceiraDTO;
 import com.atos.inventario.atosdto.LoginRequestDTO;
 import com.atos.inventario.atosdto.LoginResponseDTO;
 import com.atos.inventario.enums.DepartamentoEmpregadoEnum;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.atos.inventario.model.Empregado;
+import com.atos.inventario.model.Financeira;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.RoleEmpregadoRepository;
 import com.atos.inventario.security.JwtUtils;
@@ -189,5 +192,31 @@ public class EmpregadoController {
 			empregadoRepository.deleteById(id);
 		}	
 	}
+	
+	@PutMapping("/empregado/atualizar")
+	public ResponseEntity<EmpregadoResponseDTO> atualizarEmpregado(@RequestBody EmpregadoRequestDTO dto){
+
+		Empregado empregado = new Empregado();
+		empregado.setIdEmpregado(dto.getIdEmpregado());
+		empregado.setMatricula(dto.getMatricula());
+		empregado.setNome(dto.getNome());
+		empregado.setEmail(dto.getEmail());
+		empregado.setAtivo(dto.getAtivo());
+		
+		empregado.setDepartamento(DepartamentoEmpregadoEnum.getByCodigo(dto.getDepartamentoId()));
+		
+		empregado.getRoles().add(roleEmpregadoRepository.getById(2L)); // USER
+		
+		//String senha1 = dto.getSenha();
+	    //String senhaCriptografada = passEncoder.encode(senha1);
+	    //empregado.setSenha(senhaCriptografada);
+		Empregado e2 = empregadoRepository.save(empregado);
+		
+		if (e2 == null) { 
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(new EmpregadoResponseDTO(e2));
+	}
+
 
 }	

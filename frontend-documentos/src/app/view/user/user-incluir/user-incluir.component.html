@@ -4,14 +4,47 @@
       <form [formGroup]="formCreateUser" (ngSubmit)="saveUser()" novalidate>
         <div class="form-group">
             <label for="matricula">Matricula: </label>
-            <input id="matricula" ng-model="matricula" type="text" class="form-control">
+            <input id="matricula" ng-model="matricula" type="text" class="form-control" formControlName="matricula">
         </div>
 
         <div class="form-group">
           <label for="nome">Nome: </label>
-          <input id="nome" type="text" class="form-control" >
+          <input id="nome" ng-model="nome" type="text" class="form-control" formControlName="nome">
         </div>
 
+        <div class="form-group">
+            <label for="email">Email: </label>
+            <input id="email" ng-model="email" type="email" class="form-control" formControlName="email">
+          </div>
+
+        <div class="form-group">      
+            <label for="departamentoId">Departamento: </label>
+            <select id="departamentoId" ng-model="departamentoId" class="form-select" 
+            formControlName="departamentoId" aria-label="Default select example">
+                <option selected>Selecione um departamento:</option>
+                <option value=1>GERENCIA</option>
+                <option value=2>COMPRAS</option>
+                <option value=3>VENDAS</option>
+                <option value=4>RECURSOS HUMANOS</option>
+                <option value=5>MARKETING</option>
+            </select>
+        </div>
+
+        <div class="form-group">      
+            <label for="ativo">Ativo: </label>
+            <select id="ativo" ng-model="ativo" class="form-select" 
+            formControlName="ativo" aria-label="Default select example">
+                <option selected>Ativo:</option>
+                <option value=true>ATIVO</option>
+                <option value=false>INATIVO</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+          <label for="senha">Senha: </label>
+          <input id="senha" ng-model="senha" type="passoword" class="form-control" 
+          formControlName="senha">
+        </div>
 
         <button type="submit" class="btn btn-success">Save</button> |
         <button (click)="back()" class="btn btn-success">Back</button>

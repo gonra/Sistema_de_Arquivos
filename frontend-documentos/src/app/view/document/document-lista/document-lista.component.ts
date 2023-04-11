@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 import { Document } from 'src/app/model/document';
+import { FiltroPesquisaDocumentoDTO } from 'src/app/model/filtro';
 import { ServiceDocumentService } from 'src/app/service/service-document.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ServiceDocumentService } from 'src/app/service/service-document.service
   templateUrl: './document-lista.component.html',
   styleUrls: ['./document-lista.component.css']
 })
-export class DocumentListaComponent implements OnInit {
+export class DocumentListaComponent implements OnInit, OnChanges {
 
   @Output() backToDocument = new EventEmitter();
   @Output() documentId = new EventEmitter();
@@ -16,10 +17,15 @@ export class DocumentListaComponent implements OnInit {
 
   action: string = "list";
   documents!: Observable<Document[]>;
+  filtro: FiltroPesquisaDocumentoDTO = {};
 
-  displayedColumns = ['id', 'unidadeProdutora', 'edit', 'delete']
+  displayedColumns = ['id', 'unidadeProdutora', 'documentoEncaminhamento', 'edit', 'delete']
 
   constructor(private documentService: ServiceDocumentService) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.listDocuments();
   }
 
   ngOnInit(): void {
@@ -27,7 +33,7 @@ export class DocumentListaComponent implements OnInit {
   }
 
   listDocuments() {
-    this.documents = this.documentService.listarDocumento({}, this.docSelecionado);
+    this.documents = this.documentService.listarDocumento(this.filtro, this.docSelecionado.toUpperCase());
   }
 
   editDocument(idDocumento: number) {

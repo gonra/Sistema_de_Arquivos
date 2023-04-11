@@ -2,9 +2,21 @@
     <div class="container">
         <h1>Create Document</h1>
         <form [formGroup]="formCreateDocument" (ngSubmit)="saveDocument()" novalidate>
+
+            <div class="form-group">
+                <label for="tipoDocumento">Tipo Documento: </label>
+                <select id="tipoDocumento" ng-model="tipoDocumento">
+                    <option value="CONTRATO">Contrato</option>
+                    <option value="LICITACAO">Licitação</option>
+                    <option value="FINANCEIRA">Financeira</option>
+                    <option value="PASTA">Pasta Funcional</option>
+                    <option value="OUTRO">Outros Assuntos</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="documentoEncaminhamento">Documento Encaminhamento: </label>
-                <input id="documentoEncaminhamento" ng-model="documentoEncaminhamento" type="text" class="form-control">
+                <input id="documentoEncaminhamento" ng-model="documentoEncaminhamento" 
+                type="text" class="form-control">
             </div>
 
             <div class="form-group">
