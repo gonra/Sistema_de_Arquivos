@@ -16,6 +16,7 @@ export class DocumentIncluirComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     public documentService: ServiceDocumentService) {
     this.formCreateDocument = new FormGroup({
+      tipoDocumento: new FormControl(''),
       documentoEncaminhamento: new FormControl(''),
       unidadeProdutora: new FormControl('')
     });
