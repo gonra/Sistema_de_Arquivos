@@ -32,6 +32,7 @@ import com.atos.inventario.model.Financeira;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.RoleEmpregadoRepository;
 import com.atos.inventario.security.JwtUtils;
+import com.atos.inventario.services.AtividadeEmpregadoService;
 import com.atos.inventario.services.UserService;
 
 @RestController
@@ -43,6 +44,9 @@ public class EmpregadoController {
 
     @Autowired
     AuthenticationManager authenticationManager;
+    
+    @Autowired
+    private AtividadeEmpregadoService log;
 
     @Autowired
     JwtUtils jwtUtils;
