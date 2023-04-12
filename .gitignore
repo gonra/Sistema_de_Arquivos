@@ -5,3 +5,4 @@
 /frontend-usuarios/node_modules/
 /frontend-usuarios/.angular/
 /frontend-documentos/src/app/constant/parametros.ts
+.metadata/*

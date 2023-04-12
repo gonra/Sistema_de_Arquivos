@@ -44,7 +44,7 @@ export class ServiceUserService {
     }
 
     deleteUser(id: number) {
-      return this.httpClient.delete(this.urlModule + 'deleteUser/' + id, this.httpOptions);
+      return this.httpClient.delete(this.urlModule + 'delete/' + id, this.httpOptions);
     }
 
     listUsers(pAtivo: string, pEmail: string, pMatricula: string, pNome: string, pUnidadeDepartamento: string) { 
@@ -66,7 +66,7 @@ export class ServiceUserService {
     updateUser(id: number, user: User) : Observable<User>{
       user.idEmpregado = id;
       console.log(user);
-      return this.httpClient.put<User>(this.urlModule + 'atualizarEmpregado/', user, this.httpOptions);
+      return this.httpClient.put<User>(this.urlModule + 'atualizar', user, this.httpOptions);
     }
 
   
