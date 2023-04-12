@@ -54,10 +54,6 @@ export class UserAlterarComponent {
       senha: ['']
     });
 
-    //this.userService.loadUser(id).subscribe((user: any) => {
-    //  console.log(user);
-    //})
-
     this.userService.loadUser(id).subscribe(user => this.formUpdateUser.patchValue(user));
 
     

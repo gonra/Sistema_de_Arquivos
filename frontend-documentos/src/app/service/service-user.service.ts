@@ -59,14 +59,17 @@ export class ServiceUserService {
     }
 
     saveUser(user: User) : Observable<User>{
-        console.log(user);
         return this.httpClient.post<User>(this.urlModule + 'cadastrar', user, this.httpOptions);
     }
 
     updateUser(id: number, user: User) : Observable<User>{
       user.idEmpregado = id;
-      console.log(user);
       return this.httpClient.put<User>(this.urlModule + 'atualizar', user, this.httpOptions);
+    }
+
+    updateLoggedUser(id: number, user: any) : Observable<User>{
+      user.idEmpregado = id;
+      return this.httpClient.put<User>(this.urlModule + 'update-logged-user', user, this.httpOptions);
     }
 
   

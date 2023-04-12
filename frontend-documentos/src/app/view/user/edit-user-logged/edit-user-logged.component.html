@@ -1,1 +1,17 @@
-<p>edit-user-logged works!</p>
+<div class="no-style" style="margin-left: 4px">
+    <h2 class="text-primary text-center" >Alterar Usuário Logado</h2>
+    <form [formGroup]="formUpdateLoggedUser" (ngSubmit)="update()">
+        <div class="form-group">
+            <label for="nome">Nome: </label>
+            <input id="nome" type="text" required class="form-control" formControlName="nome">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email: </label>
+            <input id="email" ng-model="email" type="email" class="form-control" formControlName="email">
+        </div>
+        <button type="submit" class="btn btn-primary">Alterar</button>
+        |
+        <button (click)="back()" class="btn btn-secondary">Cancelar</button>
+    </form>
+</div>

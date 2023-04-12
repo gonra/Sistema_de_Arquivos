@@ -24,7 +24,7 @@
         </div>
 
         <div *ngIf="menuitem == 5">
-            <app-edit-user-logged></app-edit-user-logged>
+            <app-edit-user-logged (sendIndexMenu)="setIndexMenu($event)" ></app-edit-user-logged>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

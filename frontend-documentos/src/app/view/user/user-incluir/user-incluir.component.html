@@ -1,26 +1,25 @@
 <div class="no-style" style="margin-left: 4px">
-    <div class="container">
-      <h1>Create User</h1>
-      <form [formGroup]="formCreateUser" (ngSubmit)="saveUser()" novalidate>
+    <h1>Criar User</h1>
+    <form [formGroup]="formCreateUser" (ngSubmit)="saveUser()" novalidate>
         <div class="form-group">
             <label for="matricula">Matricula: </label>
             <input id="matricula" ng-model="matricula" type="text" class="form-control" formControlName="matricula">
         </div>
 
         <div class="form-group">
-          <label for="nome">Nome: </label>
-          <input id="nome" ng-model="nome" type="text" class="form-control" formControlName="nome">
+            <label for="nome">Nome: </label>
+            <input id="nome" ng-model="nome" type="text" class="form-control" formControlName="nome">
         </div>
 
         <div class="form-group">
             <label for="email">Email: </label>
             <input id="email" ng-model="email" type="email" class="form-control" formControlName="email">
-          </div>
+        </div>
 
-        <div class="form-group">      
+        <div class="form-group">
             <label for="departamentoId">Departamento: </label>
-            <select id="departamentoId" ng-model="departamentoId" class="form-select" 
-            formControlName="departamentoId" aria-label="Default select example">
+            <select id="departamentoId" ng-model="departamentoId" class="form-select"
+                    formControlName="departamentoId" aria-label="Default select example">
                 <option selected>Selecione um departamento:</option>
                 <option value=1>GERENCIA</option>
                 <option value=2>COMPRAS</option>
@@ -30,10 +29,10 @@
             </select>
         </div>
 
-        <div class="form-group">      
+        <div class="form-group">
             <label for="ativo">Ativo: </label>
-            <select id="ativo" ng-model="ativo" class="form-select" 
-            formControlName="ativo" aria-label="Default select example">
+            <select id="ativo" ng-model="ativo" class="form-select"
+                    formControlName="ativo" aria-label="Default select example">
                 <option selected>Ativo:</option>
                 <option value=true>ATIVO</option>
                 <option value=false>INATIVO</option>
@@ -41,55 +40,15 @@
         </div>
 
         <div class="form-group">
-          <label for="senha">Senha: </label>
-          <input id="senha" ng-model="senha" type="passoword" class="form-control" 
-          formControlName="senha">
+            <label for="senha">Senha: </label>
+            <input id="senha" ng-model="senha" type="passoword" class="form-control"
+                   formControlName="senha">
         </div>
 
-        <button type="submit" class="btn btn-success">Save</button> |
-        <button (click)="back()" class="btn btn-success">Back</button>
-      </form>
-    </div>
-  </div>
-
-<!--<div class="borda">
-    <h2 class="text-primary text-center">Novo Usuário</h2>
-    <form>
-        <div class="mb-3">
-            <label class="form-label">Id Empregado</label>
-            <input type="text" class="form-control" 
-            name="idEmpregado"/>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Matricula</label>
-            <input type="text" class="form-control"
-             name="matricula"/>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Nome</label>
-            <input type="text" class="form-control" 
-            name="nome"/>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Senha</label>
-            <input type="text" class="form-control" 
-            name="senha"/>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Data Login</label>
-            <input type="text" class="form-control" 
-            name="dataLogin"/>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Ativo</label>
-            <input type="text" class="form-control" 
-            name="ativo"/>
-        </div>
-        <div class="mb-3">
-            <button class="btn btn-primary" (click)="save()">Incluir Usuário</button> |
-            <button class="btn btn-secondary" (click)="back()">Voltar</button>
-        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        |
+        <button (click)="back()" class="btn btn-secondary">Voltar</button>
     </form>
-</div>-->
+</div>
 
 

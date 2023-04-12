@@ -14,10 +14,6 @@ export class UserComponent {
     this.action = action;
   }
 
-  actionEditUser(action: string, user: User) : void {
-    this.action = action;
-  }
-
   sendIdUser(idEmpregado: number) {
     if(this.action == 'edit') {
       this.userId = idEmpregado;
