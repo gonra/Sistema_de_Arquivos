@@ -4,6 +4,7 @@ export interface User {
     nome:String,
     senha:String,
     departamentoId: Number,
+    departamentoDesc: String,
     dataLogin:String,
     ativo:Boolean
 }

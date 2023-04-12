@@ -185,37 +185,40 @@ public class EmpregadoController {
 		}
 	}
 	
-	@DeleteMapping(value = "/empregado/deleteUser/{id}" )
+	@DeleteMapping(value = "/empregado/delete/{id}" )
 	public void deleteUser(@PathVariable("id") Long id) {
 		Optional<Empregado> empregado = empregadoRepository.findById(id);
 		if (empregado.isPresent()) {
-			empregadoRepository.deleteById(id);
+			//TO DO
+			//empregadoRepository.deleteById(id);
 		}	
 	}
 	
-	@PutMapping("/empregado/atualizar")
+	@PutMapping(value = "/empregado/atualizar")
 	public ResponseEntity<EmpregadoResponseDTO> atualizarEmpregado(@RequestBody EmpregadoRequestDTO dto){
 
-		Empregado empregado = new Empregado();
-		empregado.setIdEmpregado(dto.getIdEmpregado());
-		empregado.setMatricula(dto.getMatricula());
-		empregado.setNome(dto.getNome());
-		empregado.setEmail(dto.getEmail());
-		empregado.setAtivo(dto.getAtivo());
+		Empregado emp = null;
 		
-		empregado.setDepartamento(DepartamentoEmpregadoEnum.getByCodigo(dto.getDepartamentoId()));
-		
-		empregado.getRoles().add(roleEmpregadoRepository.getById(2L)); // USER
-		
-		//String senha1 = dto.getSenha();
-	    //String senhaCriptografada = passEncoder.encode(senha1);
-	    //empregado.setSenha(senhaCriptografada);
-		Empregado e2 = empregadoRepository.save(empregado);
-		
-		if (e2 == null) { 
-			return ResponseEntity.badRequest().build();
+		Optional<Empregado> empregado = empregadoRepository.findById(dto.getIdEmpregado());
+		if (empregado.isPresent()) {
+			emp = empregado.get();
+			
+			emp.setMatricula(dto.getMatricula());
+			emp.setNome(dto.getNome());
+			emp.setEmail(dto.getEmail());
+			emp.setAtivo(dto.getAtivo());
+			
+			emp.setDepartamento(DepartamentoEmpregadoEnum.getByCodigo(dto.getDepartamentoId()));
+			
+			emp = empregadoRepository.save(emp);
+			
+			if (emp == null) { 
+				return ResponseEntity.badRequest().build();
+			}
+			
 		}
-		return ResponseEntity.ok(new EmpregadoResponseDTO(e2));
+		
+		return ResponseEntity.ok(new EmpregadoResponseDTO(emp));
 	}
 
 
