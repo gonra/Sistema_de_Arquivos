@@ -1,0 +1,35 @@
+<div class="borda">
+    <h2 class="text-primary text-center">Total de documentos ingressados por usaurio</h2>
+    <div class="borda">
+        <select #lista class="form-select" (change)="setTipDocSelected(lista.value)">
+            <option value="">SELECIONE</option>
+            <option value="CONTRATO">Tipo Documento 1</option>
+            <option value="LICITACAO">Tipo Documento 2</option>
+        </select>
+    </div>
+    <div class="mb-3" *ngIf="tipoDocSelecionado">
+        <div class="borda">
+            <table mat-table class="mat-elevation-z8">
+                <!-- Matricula Column -->
+                <ng-container matColumnDef="usuario">
+                    <th mat-header-cell *matHeaderCellDef> Usuario </th>
+                    <td mat-cell> Contrato </td>
+                </ng-container>
+            
+              <!-- Nome Column -->
+              <ng-container matColumnDef="totalDocumento">
+                <th mat-header-cell *matHeaderCellDef> Total de documentos </th>
+                <td mat-cell> 50 </td>
+              </ng-container>
+            
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+    <div class="borda">
+        <button (click)="back()" class="btn btn-secondary">Voltar</button>
+    </div>
+</div>
+
+

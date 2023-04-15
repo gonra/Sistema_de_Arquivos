@@ -33,6 +33,10 @@ import { DocumentListaComponent } from './view/document/document-lista/document-
 import { DocumentIncluirComponent } from './view/document/document-incluir/document-incluir.component';
 import { DocumentAlterarComponent } from './view/document/document-alterar/document-alterar.component';
 import { DocumentExcluirComponent } from './view/document/document-excluir/document-excluir.component';
+import { TotalCaixaTipoDocComponent } from './view/report/total-caixa-tipo-doc/total-caixa-tipo-doc.component';
+import { TotalDocumentoPorEnderecoComponent } from './view/report/total-documento-por-endereco/total-documento-por-endereco.component';
+import { TotalDocumentoIngressadoPorUsuarioPorTipoDocComponent } from './view/report/total-documento-ingressado-por-usuario-por-tipo-doc/total-documento-ingressado-por-usuario-por-tipo-doc.component';
+import { TotalDocumentoIngressadoPeloUsuarioComponent } from './view/report/total-documento-ingressado-pelo-usuario/total-documento-ingressado-pelo-usuario.component';
 
 
 @NgModule({
@@ -51,7 +55,11 @@ import { DocumentExcluirComponent } from './view/document/document-excluir/docum
         DocumentListaComponent,
         DocumentIncluirComponent,
         DocumentAlterarComponent,
-        DocumentExcluirComponent
+        DocumentExcluirComponent,
+        TotalCaixaTipoDocComponent,
+        TotalDocumentoPorEnderecoComponent,
+        TotalDocumentoIngressadoPorUsuarioPorTipoDocComponent,
+        TotalDocumentoIngressadoPeloUsuarioComponent
     ],
     imports: [
         BrowserModule,

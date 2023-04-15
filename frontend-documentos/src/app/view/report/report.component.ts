@@ -6,9 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements OnInit {
+  action: string = "init";
 
   constructor() { }
 
+  actionUser(action: string) : void {
+    this.action = action;
+  }
+  
   ngOnInit(): void {
   }
 
