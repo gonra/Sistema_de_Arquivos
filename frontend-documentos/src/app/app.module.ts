@@ -10,6 +10,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -32,7 +35,6 @@ import {NgOptimizedImage} from "@angular/common";
 import { DocumentListaComponent } from './view/document/document-lista/document-lista.component';
 import { DocumentIncluirComponent } from './view/document/document-incluir/document-incluir.component';
 import { DocumentAlterarComponent } from './view/document/document-alterar/document-alterar.component';
-import { DocumentExcluirComponent } from './view/document/document-excluir/document-excluir.component';
 import { TotalCaixaTipoDocComponent } from './view/report/total-caixa-tipo-doc/total-caixa-tipo-doc.component';
 import { TotalDocumentoPorEnderecoComponent } from './view/report/total-documento-por-endereco/total-documento-por-endereco.component';
 import { TotalDocumentoIngressadoPorUsuarioPorTipoDocComponent } from './view/report/total-documento-ingressado-por-usuario-por-tipo-doc/total-documento-ingressado-por-usuario-por-tipo-doc.component';
@@ -55,7 +57,6 @@ import { TotalDocumentoIngressadoPeloUsuarioComponent } from './view/report/tota
         DocumentListaComponent,
         DocumentIncluirComponent,
         DocumentAlterarComponent,
-        DocumentExcluirComponent,
         TotalCaixaTipoDocComponent,
         TotalDocumentoPorEnderecoComponent,
         TotalDocumentoIngressadoPorUsuarioPorTipoDocComponent,
@@ -71,6 +72,9 @@ import { TotalDocumentoIngressadoPeloUsuarioComponent } from './view/report/tota
         MatTableModule,
         MatFormFieldModule,
         MatInputModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
         HttpClientModule,
         ReactiveFormsModule,
         NgbModule,
@@ -80,7 +84,8 @@ import { TotalDocumentoIngressadoPeloUsuarioComponent } from './view/report/tota
         NgOptimizedImage
     ],
     exports: [
-        MenuComponent
+        MenuComponent,
+        MatNativeDateModule
     ],
     providers: [ServiceLoginService],
     bootstrap: [AppComponent]

@@ -18,7 +18,24 @@ export class DocumentIncluirComponent implements OnInit {
     this.formCreateDocument = new FormGroup({
       tipoDocumento: new FormControl(''),
       documentoEncaminhamento: new FormControl(''),
-      unidadeProdutora: new FormControl('')
+      unidadeProdutora: new FormControl(''),
+      classificacaoDocumental: new FormControl(''),
+      dataLimite: new FormControl(''),
+
+	    numeroCaixaEscritorioOrigem: new FormControl(''),
+	    numeroCaixaArquivoCustodia: new FormControl(''),
+	    numeroContrato: new FormControl(''),
+	    numeroPec: new FormControl(''),
+	    empresaContratada: new FormControl(''),
+	    objetoResumido: new FormControl(''),
+	
+      endereco: new FormControl(''),
+      predio: new FormControl(''),
+      sala: new FormControl(''),
+      bloco: new FormControl(''),
+      posicao: new FormControl(''),
+      numeroCaixa: new FormControl('')
+	
     });
 
   }
@@ -30,7 +47,12 @@ export class DocumentIncluirComponent implements OnInit {
     })
   }
 
-  saveDocument() {
+  onChangeTipoDocumento(){
+
+  }
+
+  salvarDocumento() {
+
     this.documentService.guardarDocumento(this.formCreateDocument.value, this.docSelecionado).subscribe(() => {
       console.warn("Cadastro realizado com sucesso");
       this.back();
