@@ -11,8 +11,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule } from '@angular/material/core';
+import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -75,6 +76,7 @@ import { TotalDocumentoIngressadoPeloUsuarioComponent } from './view/report/tota
         MatDatepickerModule,
         MatNativeDateModule,
         MatSelectModule,
+        MatDialogModule,
         HttpClientModule,
         ReactiveFormsModule,
         NgbModule,
@@ -87,7 +89,8 @@ import { TotalDocumentoIngressadoPeloUsuarioComponent } from './view/report/tota
         MenuComponent,
         MatNativeDateModule
     ],
-    providers: [ServiceLoginService],
+    providers: [ServiceLoginService,
+        {provide: MAT_DATE_LOCALE, useValue: 'pt'}],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -11,6 +11,7 @@ import { User } from '../model/user';
 export class ServiceLoginService {
 
     etapa: Number = 1;
+    currentEmpregadoId = 0;
     token = "";
     // @Output() error_message = new EventEmitter();
 
@@ -50,6 +51,7 @@ export class ServiceLoginService {
                     this.setToken(res.token);
                     this.doDataUserLogged().subscribe((user: any) => {
                         localStorage.setItem('user', JSON.stringify(user));
+                        this.currentEmpregadoId = user?.idEmpregado;
                         this.router.navigate(['/home'])
                     })
                 },
