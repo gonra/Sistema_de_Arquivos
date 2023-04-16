@@ -58,7 +58,7 @@ public class OutroDocumentoController {
     @Autowired
     private UserService userService;
 	
-    @GetMapping(value = "/outro/listar")
+    @PostMapping(value = "/outro/listar")
     public ResponseEntity<List<OutroDocumento>> list(@RequestBody(required=false) FiltroPesquisaDTO filtro) {
 
 		// TODO organizar os filtros
