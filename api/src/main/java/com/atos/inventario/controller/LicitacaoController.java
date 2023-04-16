@@ -1,6 +1,7 @@
 package com.atos.inventario.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -27,7 +28,9 @@ import com.atos.inventario.repositories.ClassificacaoDocumentalRepository;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.LicitacaoRepository;
 import com.atos.inventario.repositories.UnidadeProdutoraRepository;
+import com.atos.inventario.services.AtividadeEmpregadoService;
 import com.atos.inventario.services.LocalizacaoService;
+import com.atos.inventario.services.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -48,6 +51,12 @@ public class LicitacaoController {
 	
 	@Autowired
 	LocalizacaoService localizacaoService;
+	
+	@Autowired
+	AtividadeEmpregadoService atividadeEmpregadoService;
+	
+    @Autowired
+    private UserService userService;
 
 	@PostMapping("/licitacao/listar")
 	public ResponseEntity<List<Licitacao>> listarLicitacao(@RequestBody(required=false) FiltroPesquisaDTO filtro) {
@@ -77,27 +86,31 @@ public class LicitacaoController {
 	}
 
 	@PostMapping("/licitacao/cadastrar")
-	public ResponseEntity<Licitacao> cadastrarLicitacao(@RequestBody LicitacaoDTO licitacaoDto) {
+	public ResponseEntity<Licitacao> cadastrarLicitacao(@RequestBody LicitacaoDTO documentoDto) {
 		
 		ModelMapper mapper = new ModelMapper();
 		
-		Licitacao licitacao = mapper.map(licitacaoDto, Licitacao.class);
+		Licitacao licitacao = mapper.map(documentoDto, Licitacao.class);
 		
-		UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(licitacaoDto.getUnidadeProdutoraId()).get();
+		UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(documentoDto.getUnidadeProdutoraId()).get();
 		licitacao.setUnidadeProdutora(unidadeProdutora);
 		
-		Empregado empregado = empregadoRepository.findById(licitacaoDto.getEmpregadoId()).get();
+		Empregado empregado = empregadoRepository.findById(documentoDto.getEmpregadoId()).get();
 		licitacao.setEmpregado(empregado);
 		
-		ClassificacaoDocumental classificacaoDocumental = classificacaoDocumentalRepository.findById(licitacaoDto.getClassificacaoDocumentalId()).get();
+		ClassificacaoDocumental classificacaoDocumental = classificacaoDocumentalRepository.findById(documentoDto.getClassificacaoDocumentalId()).get();
 		licitacao.setClassificacaoDocumental(classificacaoDocumental);
 		
-		Localizacao localizacao = localizacaoService.validaLocalizacao(licitacaoDto.getLocalizacao());
+		Localizacao localizacao = localizacaoService.validaLocalizacao(documentoDto.getLocalizacao());
 		licitacao.setLocalizacao(localizacao);
 
-		Licitacao licitacaoRetorno = licitacaoRepository.save(licitacao);
+		Licitacao retorno = licitacaoRepository.save(licitacao);
 
-		return ResponseEntity.ok(licitacaoRetorno);
+		if (retorno != null) {
+			atividadeEmpregadoService.registrar(empregado, "DOCUMENTO LICITACAO #"+retorno.getId() + " CADASTRADO");
+		}
+		
+		return ResponseEntity.ok(retorno);
 	}
 
 	@GetMapping(value = "/licitacao/{id}")
@@ -114,9 +127,14 @@ public class LicitacaoController {
 	@DeleteMapping(value = "/licitacao/{id}")
 	public ResponseEntity<Void> deletarLicitacao(@PathVariable long id) {
 
+		Optional<Empregado> empregado = userService.getUserWithAuthorities();
+		
 		Licitacao licitacao = licitacaoRepository.findById(id);
 		if (licitacao != null) {
 			licitacaoRepository.delete(licitacao);
+			if (empregado.isPresent()) {
+	        	atividadeEmpregadoService.registrar(empregado.get(), "DOCUMENTO LICITACAO #"+ id + " DELETADO");
+	        }
 			return ResponseEntity.noContent().build();
 		} else {
 			return ResponseEntity.notFound().build();

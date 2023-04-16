@@ -2,6 +2,7 @@ package com.atos.inventario.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -27,7 +28,9 @@ import com.atos.inventario.repositories.ClassificacaoDocumentalRepository;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.PastaFuncionalRepository;
 import com.atos.inventario.repositories.UnidadeProdutoraRepository;
+import com.atos.inventario.services.AtividadeEmpregadoService;
 import com.atos.inventario.services.LocalizacaoService;
+import com.atos.inventario.services.UserService;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -48,6 +51,12 @@ public class PastaFuncionalController {
 	
 	@Autowired
 	LocalizacaoService localizacaoService;
+	
+	@Autowired
+	AtividadeEmpregadoService atividadeEmpregadoService;
+	
+    @Autowired
+    private UserService userService;
 
     @PostMapping(value = "/pasta/listar")
     public ResponseEntity<List<PastaFuncional>> list(@RequestBody(required=false) FiltroPesquisaDTO filtro) {
@@ -94,8 +103,13 @@ public class PastaFuncionalController {
 		Localizacao localizacao = localizacaoService.validaLocalizacao(pastaFuncionalDto.getLocalizacao());
 		pastaFuncional.setLocalizacao(localizacao);
     	
-    	PastaFuncional pasta = pastaFuncionalRepository.save(pastaFuncional);
-    	return ResponseEntity.ok(pasta);
+    	PastaFuncional retorno = pastaFuncionalRepository.save(pastaFuncional);
+    	
+		if (retorno != null) {
+			atividadeEmpregadoService.registrar(empregado, "DOCUMENTO PASTA FUNCIONAL #"+retorno.getId() + " CADASTRADO");
+		}
+
+    	return ResponseEntity.ok(retorno);
     }
     
     @GetMapping(value= "/pasta/{id}")
@@ -110,9 +124,14 @@ public class PastaFuncionalController {
 
     @DeleteMapping(value="/pasta/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
+    	Optional<Empregado> empregado = userService.getUserWithAuthorities();
+    	
     	PastaFuncional result = pastaFuncionalRepository.findById(id);
     	if (result != null) {
     		pastaFuncionalRepository.delete(result);
+    		if (empregado.isPresent()) {
+	        	atividadeEmpregadoService.registrar(empregado.get(), "DOCUMENTO PASTA FUNCIONAL #"+ id + " DELETADO");
+	        }
     		return ResponseEntity.noContent().build();
     	} else {
     		return ResponseEntity.notFound().build();

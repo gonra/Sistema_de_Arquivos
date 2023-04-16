@@ -15,6 +15,7 @@ public class LicitacaoDTO implements Serializable {
 	private String numeroPec;
 	private String objetoResumido;
 
+	private String dataCriacao;
 	private Long unidadeProdutoraId;
 	private Long classificacaoDocumentalId;
 	private Date dataLimite;
@@ -118,8 +119,12 @@ public class LicitacaoDTO implements Serializable {
 		this.localizacao = localizacao;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(String dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 
 }

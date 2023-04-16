@@ -1,6 +1,7 @@
 package com.atos.inventario.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -27,7 +28,9 @@ import com.atos.inventario.repositories.ClassificacaoDocumentalRepository;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.FinanceiraRepository;
 import com.atos.inventario.repositories.UnidadeProdutoraRepository;
+import com.atos.inventario.services.AtividadeEmpregadoService;
 import com.atos.inventario.services.LocalizacaoService;
+import com.atos.inventario.services.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -48,6 +51,12 @@ public class FinanceiraController {
 	
 	@Autowired
 	LocalizacaoService localizacaoService;
+	
+	@Autowired
+	AtividadeEmpregadoService atividadeEmpregadoService;
+	
+    @Autowired
+    private UserService userService;
 
 	@PostMapping("/financeira/listar")
 	public ResponseEntity<List<Financeira>> listarFinanceira(@RequestBody(required=false) FiltroPesquisaDTO filtro) {
@@ -76,26 +85,29 @@ public class FinanceiraController {
 	}
 
 	@PostMapping("/financeira/cadastrar")
-	public ResponseEntity<Financeira> cadastrarFinanceira(@RequestBody FinanceiraDTO financeiraDto) {
+	public ResponseEntity<Financeira> cadastrarFinanceira(@RequestBody FinanceiraDTO documentoDto) {
 		ModelMapper mapper = new ModelMapper();
 		
-		Financeira financeira = mapper.map(financeiraDto, Financeira.class);
+		Financeira financeira = mapper.map(documentoDto, Financeira.class);
 		
-		UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(financeiraDto.getUnidadeProdutoraId()).get();
+		UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(documentoDto.getUnidadeProdutoraId()).get();
 		financeira.setUnidadeProdutora(unidadeProdutora);
 		
-		Empregado empregado = empregadoRepository.findById(financeiraDto.getEmpregadoId()).get();
+		Empregado empregado = empregadoRepository.findById(documentoDto.getEmpregadoId()).get();
 		financeira.setEmpregado(empregado);
 		
-		ClassificacaoDocumental classificacaoDocumental = classificacaoDocumentalRepository.findById(financeiraDto.getClassificacaoDocumentalId()).get();
+		ClassificacaoDocumental classificacaoDocumental = classificacaoDocumentalRepository.findById(documentoDto.getClassificacaoDocumentalId()).get();
 		financeira.setClassificacaoDocumental(classificacaoDocumental);
 		
-		Localizacao localizacao = localizacaoService.validaLocalizacao(financeiraDto.getLocalizacao());
+		Localizacao localizacao = localizacaoService.validaLocalizacao(documentoDto.getLocalizacao());
 		financeira.setLocalizacao(localizacao);
 		
-		Financeira financeiraRetorno = financeiraRepository.save(financeira);
+		Financeira retorno = financeiraRepository.save(financeira);
 
-		return ResponseEntity.ok(financeiraRetorno);
+		if (retorno != null) {
+			atividadeEmpregadoService.registrar(empregado, "DOCUMENTO FINANCEIRA #"+retorno.getId() + " CADASTRADO");
+		}
+		return ResponseEntity.ok(retorno);
 	}
 
 	@GetMapping(value = "/financeira/{id}")
@@ -112,9 +124,14 @@ public class FinanceiraController {
 	@DeleteMapping(value = "/financeira/{id}")
 	public ResponseEntity<Void> deletarFinanceira(@PathVariable long id) {
 
+		Optional<Empregado> empregado = userService.getUserWithAuthorities();
+		
 		Financeira financeira = financeiraRepository.findById(id);
 		if (financeira != null) {
 			financeiraRepository.delete(financeira);
+			if (empregado.isPresent()) {
+	        	atividadeEmpregadoService.registrar(empregado.get(), "DOCUMENTO FINANCEIRA #"+ id + " DELETADO");
+	        }
 			return ResponseEntity.noContent().build();
 		} else {
 			return ResponseEntity.notFound().build();

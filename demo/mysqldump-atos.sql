@@ -149,7 +149,6 @@ CREATE TABLE `tb_empregado` (
   `nome` varchar(255) DEFAULT NULL,
   `senha` varchar(255) NOT NULL,
   PRIMARY KEY (`id_empregado`),
-  UNIQUE KEY `UK_5p2edvo6isnrre7fj4bkbf9up` (`departamento`),
   UNIQUE KEY `UK_j1lb1xdojxycge5icgbqu5y4o` (`matricula`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

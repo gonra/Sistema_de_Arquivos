@@ -16,6 +16,7 @@ public class ContratoDTO implements Serializable{
 	private String empresaContratada;
 	private String objetoResumido;
 	
+	private String dataCriacao;
 	private Long unidadeProdutoraId;
 	private Long classificacaoDocumentalId;
 	private Date dataLimite;
@@ -125,6 +126,14 @@ public class ContratoDTO implements Serializable{
 
 	public void setLocalizacao(LocalizacaoDTO localizacao) {
 		this.localizacao = localizacao;
+	}
+
+	public String getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(String dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 	
 	

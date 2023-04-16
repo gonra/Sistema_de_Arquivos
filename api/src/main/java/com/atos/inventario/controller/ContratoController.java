@@ -1,6 +1,7 @@
 package com.atos.inventario.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -25,7 +26,9 @@ import com.atos.inventario.model.Empregado;
 import com.atos.inventario.model.Localizacao;
 import com.atos.inventario.model.UnidadeProdutora;
 import com.atos.inventario.repositories.*;
+import com.atos.inventario.services.AtividadeEmpregadoService;
 import com.atos.inventario.services.LocalizacaoService;
+import com.atos.inventario.services.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -46,6 +49,12 @@ public class ContratoController {
 	
 	@Autowired
 	LocalizacaoService localizacaoService;
+	
+	@Autowired
+	AtividadeEmpregadoService atividadeEmpregadoService;
+	
+    @Autowired
+    private UserService userService;
 	
 	@PostMapping("/contrato/listar")
 	public ResponseEntity<List<Contrato>> listarContrato(@RequestBody(required=false) FiltroPesquisaDTO filtro) {
@@ -76,26 +85,29 @@ public class ContratoController {
 	}
 
 	@PostMapping("/contrato/cadastrar")
-	public ResponseEntity<Contrato> cadastrarContrato(@RequestBody ContratoDTO contratoDto) {
+	public ResponseEntity<Contrato> cadastrarContrato(@RequestBody ContratoDTO documentoDto) {
 		ModelMapper mapper = new ModelMapper();
 		
-		Contrato contrato = mapper.map(contratoDto, Contrato.class);
+		Contrato contrato = mapper.map(documentoDto, Contrato.class);
 		
-		UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(contratoDto.getUnidadeProdutoraId()).get();
+		UnidadeProdutora unidadeProdutora = unidadeProdutoraRepository.findById(documentoDto.getUnidadeProdutoraId()).get();
 		contrato.setUnidadeProdutora(unidadeProdutora);
 		
-		Empregado empregado = empregadoRepository.findById(contratoDto.getEmpregadoId()).get();
+		Empregado empregado = empregadoRepository.findById(documentoDto.getEmpregadoId()).get();
 		contrato.setEmpregado(empregado);
 		
-		ClassificacaoDocumental classificacaoDocumental = classificacaoDocumentalRepository.findById(contratoDto.getClassificacaoDocumentalId()).get();
+		ClassificacaoDocumental classificacaoDocumental = classificacaoDocumentalRepository.findById(documentoDto.getClassificacaoDocumentalId()).get();
 		contrato.setClassificacaoDocumental(classificacaoDocumental);
 		
-		Localizacao localizacao = localizacaoService.validaLocalizacao(contratoDto.getLocalizacao());
+		Localizacao localizacao = localizacaoService.validaLocalizacao(documentoDto.getLocalizacao());
 		contrato.setLocalizacao(localizacao);
 		
-		Contrato contratoRetorno = contratoRepository.save(contrato);
+		Contrato retorno = contratoRepository.save(contrato);
+		if (retorno != null) {
+			atividadeEmpregadoService.registrar(empregado, "DOCUMENTO CONTRATO #"+retorno.getId() + " CADASTRADO");
+		}
 
-		return ResponseEntity.ok(contratoRetorno);
+		return ResponseEntity.ok(retorno);
 	}
 
 	@GetMapping(value = "/contrato/{id}")
@@ -112,9 +124,14 @@ public class ContratoController {
 	@DeleteMapping(value = "/contrato/{id}")
 	public ResponseEntity<Void> deletarContrato(@PathVariable long id) {
 
+        Optional<Empregado> empregado = userService.getUserWithAuthorities();
+
 		Contrato contrato = contratoRepository.findById(id);
 		if (contrato != null) {
 			contratoRepository.delete(contrato);
+	        if (empregado.isPresent()) {
+	        	atividadeEmpregadoService.registrar(empregado.get(), "DOCUMENTO CONTRATO #"+ id + " DELETADO");
+	        }
 			return ResponseEntity.noContent().build();
 		} else {
 			return ResponseEntity.notFound().build();

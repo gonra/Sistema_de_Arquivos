@@ -1,6 +1,7 @@
 package com.atos.inventario.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -27,7 +28,9 @@ import com.atos.inventario.repositories.ClassificacaoDocumentalRepository;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.OutroDocumentoRepository;
 import com.atos.inventario.repositories.UnidadeProdutoraRepository;
+import com.atos.inventario.services.AtividadeEmpregadoService;
 import com.atos.inventario.services.LocalizacaoService;
+import com.atos.inventario.services.UserService;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -49,6 +52,12 @@ public class OutroDocumentoController {
 	@Autowired
 	LocalizacaoService localizacaoService;
 
+	@Autowired
+	AtividadeEmpregadoService atividadeEmpregadoService;
+	
+    @Autowired
+    private UserService userService;
+	
     @GetMapping(value = "/outro/listar")
     public ResponseEntity<List<OutroDocumento>> list(@RequestBody(required=false) FiltroPesquisaDTO filtro) {
 
@@ -93,7 +102,13 @@ public class OutroDocumentoController {
 		Localizacao localizacao = localizacaoService.validaLocalizacao(outroDocumentoDto.getLocalizacao());
 		outroDocumento.setLocalizacao(localizacao);
 		
-        return ResponseEntity.ok(outroDocumentoRepository.save(outroDocumento));
+		OutroDocumento retorno = outroDocumentoRepository.save(outroDocumento);
+		
+		if (retorno != null) {
+			atividadeEmpregadoService.registrar(empregado, "DOCUMENTO OUTRO #"+retorno.getId() + " CADASTRADO");
+		}
+
+        return ResponseEntity.ok(retorno);
     }
     
     @GetMapping(value = "/outro/{id}")
@@ -108,9 +123,15 @@ public class OutroDocumentoController {
     
     @DeleteMapping(value = "/outro/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
+
+        Optional<Empregado> empregado = userService.getUserWithAuthorities();
+        
     	OutroDocumento result = outroDocumentoRepository.findById(id);
        	if ( result != null) {
        		outroDocumentoRepository.delete(result);
+       		if (empregado.isPresent()) {
+	        	atividadeEmpregadoService.registrar(empregado.get(), "DOCUMENTO OUTRO #"+ id + " DELETADO");
+	        }
        		return ResponseEntity.noContent().build();
     	} else {
     		return ResponseEntity.notFound().build();

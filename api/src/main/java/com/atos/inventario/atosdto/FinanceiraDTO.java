@@ -14,6 +14,7 @@ public class FinanceiraDTO implements Serializable {
 	private Date dataPagamento;
 	private String unidadePagamento;
 
+	private String dataCriacao;
 	private Long unidadeProdutoraId;
 	private Long classificacaoDocumentalId;
 	private Date dataLimite;
@@ -109,8 +110,14 @@ public class FinanceiraDTO implements Serializable {
 		this.localizacao = localizacao;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getDataCriacao() {
+		return dataCriacao;
 	}
+
+	public void setDataCriacao(String dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+
 
 }

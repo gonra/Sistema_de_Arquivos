@@ -13,6 +13,7 @@ public class OutroDocumentoDTO implements Serializable {
 	private String numeroCaixaArquivoCustodia;
 	private String objetoResumido;
 
+	private String dataCriacao;
 	private Long unidadeProdutoraId;
 	private Long classificacaoDocumentalId;
 	private Date dataLimite;
@@ -100,8 +101,12 @@ public class OutroDocumentoDTO implements Serializable {
 		this.localizacao = localizacao;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(String dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 
 }
