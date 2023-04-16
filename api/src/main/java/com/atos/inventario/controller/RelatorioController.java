@@ -28,9 +28,9 @@ public class RelatorioController {
 //	}
 
 
-	@GetMapping({"/reports/docs_address", "/reports/docs_address/{endereco}"})
-	public ResponseEntity<List<ReportDocumentAddressDTO>> getReportAllDocTypesByAddress(@PathVariable(required = false)  String endereco) {
-		return ResponseEntity.ok(relatorioService.getReportAllDocTypesByAddress(endereco));
+	@GetMapping({"/reports/docs_address", "/reports/docs_address/{endereco_id}"})
+	public ResponseEntity<List<ReportDocumentAddressDTO>> getReportAllDocTypesByAddress(@PathVariable(required = false)  String endereco_id) {
+		return ResponseEntity.ok(relatorioService.getReportAllDocTypesByAddress(endereco_id));
 	}
 
 }

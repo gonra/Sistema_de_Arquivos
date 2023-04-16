@@ -9,10 +9,12 @@ public class ReportDocumentAddressDTO implements Serializable{
 	private String totalQuantidade;
 
 	private String indiceDocumento;
+	private String endereco;
 
-	public ReportDocumentAddressDTO(String documento, String qtd) {
+	public ReportDocumentAddressDTO(String documento, String qtd, String endereco) {
 		this.totalQuantidade =  qtd;
 		this.indiceDocumento = documento;
+		this.endereco = endereco;
 	}
 
 	public String getTotalQuantidade() {
@@ -29,5 +31,13 @@ public class ReportDocumentAddressDTO implements Serializable{
 
 	public void setIndiceDocumento(String indiceDocumento) {
 		this.indiceDocumento = indiceDocumento;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 }

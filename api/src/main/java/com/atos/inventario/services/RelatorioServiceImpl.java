@@ -143,72 +143,72 @@ public class RelatorioServiceImpl implements RelatorioService {
 //	}
 
 
-    public List<ReportDocumentAddressDTO> getReportAllDocTypesByAddress(String endereco) {
+    public List<ReportDocumentAddressDTO> getReportAllDocTypesByAddress(String endereco_id) {
         List<ReportDocumentAddressDTO> relatorio = new ArrayList<>();
         long numeroFila = 1L;
 
         List<IRowCount> listaContrato = new ArrayList<>();
-        if (endereco != null) {
-            listaContrato.addAll(contratoRepository.pesquisaAgrupadaEndereco(endereco));
+        if (endereco_id != null) {
+            listaContrato.addAll(contratoRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
         } else {
             listaContrato.addAll(contratoRepository.search());
         }
 
         for (IRowCount x : listaContrato) {
             relatorio.add(
-                    new ReportDocumentAddressDTO("CONTRATOS", x.getTotal().toString())
+                    new ReportDocumentAddressDTO("CONTRATOS", x.getTotal().toString(), x.getEndereco())
             );
         }
 
         List<IRowCount> listaFinanceira = new ArrayList<>();
-        if (endereco != null) {
-            listaFinanceira.addAll(financeiraRepository.pesquisaAgrupadaEndereco(endereco));
+        if (endereco_id != null) {
+            listaFinanceira.addAll(financeiraRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
         } else {
             listaFinanceira.addAll(financeiraRepository.search());
         }
 
         for (IRowCount x : listaFinanceira) {
             relatorio.add(
-                    new ReportDocumentAddressDTO("FINANCEIRA", x.getTotal().toString())
+                    new ReportDocumentAddressDTO("FINANCEIRA", x.getTotal().toString(), x.getEndereco())
             );
         }
 
         List<IRowCount> listaLicitacao = new ArrayList<>();
-        if (endereco != null) {
-            listaLicitacao.addAll(licitacaoRepository.pesquisaAgrupadaEndereco(endereco));
+        if (endereco_id != null) {
+            listaLicitacao.addAll(licitacaoRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
         } else {
             listaLicitacao.addAll(licitacaoRepository.search());
         }
 
         for (IRowCount x : listaLicitacao) {
             relatorio.add(
-                    new ReportDocumentAddressDTO("LICITACAO", x.getTotal().toString())
+                    new ReportDocumentAddressDTO("LICITACAO", x.getTotal().toString(),x.getEndereco())
             );
         }
 
         List<IRowCount> listaPastaFuncional = new ArrayList<>();
-        if (endereco != null) {
-            listaPastaFuncional.addAll(pastaFuncionalRepository.pesquisaAgrupadaEndereco(endereco));
+        if (endereco_id != null) {
+            listaPastaFuncional.addAll(pastaFuncionalRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
         } else {
             listaPastaFuncional.addAll(pastaFuncionalRepository.search());
         }
 
         for (IRowCount x : listaPastaFuncional) {
             relatorio.add(
-                    new ReportDocumentAddressDTO("PASTA_FUNCIONAL", x.getTotal().toString())
+                    new ReportDocumentAddressDTO("PASTA_FUNCIONAL", x.getTotal().toString(), x.getEndereco())
             );
         }
 
         List<IRowCount> listaOutroDoc = new ArrayList<>();
-        if (endereco != null) {
-            listaOutroDoc.addAll(outrosDocRepository.pesquisaAgrupadaEndereco(endereco));
+        if (endereco_id != null) {
+            listaOutroDoc.addAll(outrosDocRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
         } else {
             listaOutroDoc.addAll(outrosDocRepository.search());
         }
 
         for (IRowCount x : listaOutroDoc) {
             relatorio.add(
-                    new ReportDocumentAddressDTO("OUTROS DOCUMENTOS", x.getTotal().toString())
+                    new ReportDocumentAddressDTO("OUTROS DOCUMENTOS", x.getTotal().toString(), x.getEndereco())
             );
         }
         return relatorio;

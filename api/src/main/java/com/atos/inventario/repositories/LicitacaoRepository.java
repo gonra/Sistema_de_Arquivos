@@ -12,8 +12,8 @@ public interface LicitacaoRepository extends JpaRepository<Licitacao, Long> {
 
 	Licitacao findById(long id);
 
-	@Query("SELECT count(c) as total from Licitacao c where UPPER(c.localizacao.endereco) like CONCAT('%', UPPER(:endereco), '%')")
-	List<IRowCount> pesquisaAgrupadaEndereco(@Param("endereco") String endereco);
+	@Query("SELECT count(c) as total, c.localizacao.endereco as endereco from Licitacao c where c.localizacao.idLocalizacao = :endereco_id group by c.localizacao.endereco")
+	List<IRowCount> pesquisaAgrupadaEndereco(@Param("endereco_id") long endereco_id);
 
 	@Query("SELECT count(c) as total from Licitacao c")
 	List<IRowCount> search();
