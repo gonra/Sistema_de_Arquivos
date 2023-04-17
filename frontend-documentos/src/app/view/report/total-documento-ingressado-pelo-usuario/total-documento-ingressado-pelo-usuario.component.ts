@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-total-documento-ingressado-pelo-usuario',
@@ -7,6 +7,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class TotalDocumentoIngressadoPeloUsuarioComponent implements OnInit {
   @Output() backToUser = new EventEmitter();
+  @Input() idUser = "-1";
+  
   usuSelecionado!: string;
   
   constructor() {}
@@ -14,7 +16,9 @@ export class TotalDocumentoIngressadoPeloUsuarioComponent implements OnInit {
   displayedColumns = ['tipoDocumento', 'totalDocumento']
 
   ngOnInit(): void {
- 
+    if (this.idUser != "-1") {
+      this. loadDataUser(this.idUser);
+    }
   }
 
   setUsuSelected(usuario: string): void {

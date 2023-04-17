@@ -1,4 +1,7 @@
+import { Observable } from 'rxjs';
+import { ServiceReportService } from './../../../service/service-report.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Report_User } from 'src/app/model/report-user';
 
 @Component({
   selector: 'app-total-documento-ingressado-por-usuario-por-tipo-doc',
@@ -7,21 +10,27 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class TotalDocumentoIngressadoPorUsuarioPorTipoDocComponent implements OnInit {
   @Output() backToUser = new EventEmitter();
-  tipoDocSelecionado!: string;
+  reportAllDocTypesByUsers: Observable<Report_User[]>;
   
-  constructor() {}
-
-  displayedColumns = ['usuario', 'totalDocumento']
-
-  ngOnInit(): void {
- 
+  constructor(public serviceReport: ServiceReportService) {
+    this.reportAllDocTypesByUsers = serviceReport.listAllDocTypesByUsers();   
   }
 
-  setTipDocSelected(tipoDocumento: string): void {
-    this.tipoDocSelecionado = tipoDocumento;
+  displayedColumns = ['usuario', 'totalDocumento', 'visualizar']
+
+  ngOnInit(): void {
+    this.listReportAllDocTypesByUsers();  
+  }
+
+  listReportAllDocTypesByUsers() {
+    this.reportAllDocTypesByUsers = this.serviceReport.listAllDocTypesByUsers();
   }
 
   back() {
     this.backToUser.emit("init");
+  }
+  
+  viewDocsUser(idUser: string) {
+    this.back();    
   }
 }

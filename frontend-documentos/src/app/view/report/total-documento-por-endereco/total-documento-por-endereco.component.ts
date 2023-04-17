@@ -1,4 +1,8 @@
+import { ServiceReportService } from './../../../service/service-report.service';
+import { Observable } from 'rxjs';
+import { Location } from './../../../model/localizacao';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Report } from 'src/app/model/report';
 
 @Component({
   selector: 'app-total-documento-por-endereco',
@@ -7,21 +11,36 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class TotalDocumentoPorEnderecoComponent implements OnInit {
   @Output() backToUser = new EventEmitter();
+
   endSelecionado!: string;
-  
-  constructor() {}
+  selectedLocation!: string;
+  locations!: Observable<Location[]>;
+  reportAllDocTypesByAddress!: Observable<Report[]>;
 
   displayedColumns = ['tipoDocumento', 'totalDocumento']
 
-  ngOnInit(): void {
- 
+  constructor(public localizacaoService: ServiceReportService,
+    public reportService: ServiceReportService) {
+    this.locations = localizacaoService.listLocations();
   }
 
-  setDocSelected(endereco: string): void {
-    this.endSelecionado = endereco;
+
+  ngOnInit(): void {
+    this.listLocations();
+  }
+
+  onChangeLocation(idAdress : string) : void  {
+    this.endSelecionado = idAdress;
+    this.reportAllDocTypesByAddress = this.reportService.listAllDocTypesByAddress(1);
   }
 
   back() {
     this.backToUser.emit("init");
   }
+
+  listLocations() {
+    this.locations = this.localizacaoService.listLocations();
+    console.log(this.locations);
+  }
+
 }

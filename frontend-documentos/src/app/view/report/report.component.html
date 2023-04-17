@@ -29,10 +29,10 @@
         <app-total-documento-por-endereco (backToUser)="actionUser($event)"></app-total-documento-por-endereco>
     </section>
     <section *ngIf="action=='totDocIngPorUsu'">
-        <app-total-documento-ingressado-por-usuario-por-tipo-doc (backToUser)="actionUser($event)"></app-total-documento-ingressado-por-usuario-por-tipo-doc>
+        <app-total-documento-ingressado-por-usuario-por-tipo-doc (viewDocsUser)="viewDocsUser($event)" (backToUser)="actionUser($event)"></app-total-documento-ingressado-por-usuario-por-tipo-doc>
     </section>
     <section *ngIf="action=='totDocIngPeloUsu'">
-        <app-total-documento-ingressado-pelo-usuario (backToUser)="actionUser($event)"></app-total-documento-ingressado-pelo-usuario>
+        <app-total-documento-ingressado-pelo-usuario [idUser]="idUser" (backToUser)="actionUser($event)"></app-total-documento-ingressado-pelo-usuario>
     </section>
 
 </div>   

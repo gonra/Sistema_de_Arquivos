@@ -1,25 +1,25 @@
 <div class="borda">
     <h2 class="text-primary text-center">Total de documentos por endereço</h2>
     <div class="borda">
-        <select #lista class="form-select" (change)="setDocSelected(lista.value)">
-            <option value="">SELECIONE</option>
-            <option value="CONTRATO">Endereço1</option>
-            <option value="LICITACAO">Endereço2</option>
+        <select #val class="form-select" (change)="onChangeLocation(val.value)">
+            <option selected disabled>SELECIONE</option>
+            <option *ngFor="let location of locations | async" [value]= "location.idLocalizacao">
+                {{location.endereco}}
         </select>
     </div>
     <div class="mb-3" *ngIf="endSelecionado">
         <div class="borda">
-            <table mat-table class="mat-elevation-z8">
-                <!-- Matricula Column -->
+            <table mat-table [dataSource]="reportAllDocTypesByAddress" class="mat-elevation-z8">
+                <!-- Tipo Documento -->
                 <ng-container matColumnDef="tipoDocumento">
                     <th mat-header-cell *matHeaderCellDef> Tipo Documento </th>
-                    <td mat-cell> Contrato </td>
+                    <td mat-cell *matCellDef="let reportItem"> {{reportItem.indiceDocumento}} </td>
                 </ng-container>
             
-              <!-- Nome Column -->
+              <!--Total -->
               <ng-container matColumnDef="totalDocumento">
-                <th mat-header-cell *matHeaderCellDef> Total de documentos </th>
-                <td mat-cell> 50 </td>
+                <th mat-header-cell *matHeaderCellDef> Total </th>
+                <td mat-cell *matCellDef="let reportItem"> {{reportItem.totalQuantidade}} </td>
               </ng-container>
             
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
