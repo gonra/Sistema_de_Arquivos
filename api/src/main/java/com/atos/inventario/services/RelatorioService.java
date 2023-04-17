@@ -13,4 +13,6 @@ public interface RelatorioService {
 //	public RelatorioDocumentoUnidadeDTO gerarRelatorio2(FiltroRelatorioDocumentoUnidadeDTO filtro);
 
 	List<ReportDocumentAddressDTO> getReportAllDocTypesByAddress(String endereco);
+
+	List<?> getReportAllDocTypesByUsers(String user_id);
 }

@@ -20,4 +20,7 @@ public interface OutroDocumentoRepository extends JpaRepository<OutroDocumento, 
 	
 	@Query("SELECT count(c) as total, c.localizacao.endereco||';'||c.localizacao.predio as endereco from OutroDocumento c group by c.localizacao.endereco, c.localizacao.predio")
 	List<IRowCount> pesquisaAgrupadaEnderecoPredio(String endereco,String predio);
+
+	@Query("SELECT count(c) as total from OutroDocumento c where c.empregado.idEmpregado = :user_id")
+	int findAllByUser(@Param("user_id") long user_id);
 }

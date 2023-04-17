@@ -3,6 +3,7 @@ package com.atos.inventario.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.atos.inventario.model.Empregado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,9 @@ public class RelatorioServiceImpl implements RelatorioService {
 
     @Autowired
     LocalizacaoRepository localizacaoRepository;
+
+    @Autowired
+    EmpregadoRepository empregadoRepository;
 
 //	@Override
 //	public RelatorioDocumentoUnidadeDTO gerarRelatorio1(FiltroRelatorioDocumentoUnidadeDTO filtro) {
@@ -212,5 +216,25 @@ public class RelatorioServiceImpl implements RelatorioService {
             );
         }
         return relatorio;
+    }
+
+    public List<?> getReportAllDocTypesByUsers(String user_id){
+        List<IUsersRowCount> empregados = empregadoRepository.findAllUers();
+        List<ReportDocumentUserDTO> userDocuments = new ArrayList<>();
+
+        for (IUsersRowCount iu : empregados){
+            int total = 0;
+            total += contratoRepository.findAllByUser(Long.parseLong(iu.getId()));
+            total += financeiraRepository.findAllByUser(Long.parseLong(iu.getId()));
+            total += licitacaoRepository.findAllByUser(Long.parseLong(iu.getId()));
+            total += pastaFuncionalRepository.findAllByUser(Long.parseLong(iu.getId()));
+            total += outrosDocRepository.findAllByUser(Long.parseLong(iu.getId()));
+
+            userDocuments.add(
+                    new ReportDocumentUserDTO(Long.parseLong(iu.getId()), iu.getNome(), total)
+            );
+        }
+
+        return  userDocuments;
     }
 }

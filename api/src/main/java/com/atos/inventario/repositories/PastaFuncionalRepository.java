@@ -20,4 +20,7 @@ public interface PastaFuncionalRepository extends JpaRepository<PastaFuncional, 
 	
 	@Query("SELECT count(c) as total, c.localizacao.endereco||';'||c.localizacao.predio as endereco from PastaFuncional c group by c.localizacao.endereco, c.localizacao.predio")
 	List<IRowCount> pesquisaAgrupadaEnderecoPredio(String endereco,String predio);
+
+	@Query("SELECT count(c) as total from PastaFuncional c where c.empregado.idEmpregado = :user_id")
+	int findAllByUser(@Param("user_id") long user_id);
 }
