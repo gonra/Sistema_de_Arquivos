@@ -1,7 +1,9 @@
 package com.atos.inventario.services;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.atos.inventario.model.Empregado;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,7 +188,7 @@ public class RelatorioServiceImpl implements RelatorioService {
 
         for (IRowCount x : listaLicitacao) {
             relatorio.add(
-                    new ReportDocumentAddressDTO("LICITACAO", x.getTotal().toString(),x.getEndereco())
+                    new ReportDocumentAddressDTO("LICITAÇÃO", x.getTotal().toString(), x.getEndereco())
             );
         }
 
@@ -199,7 +201,7 @@ public class RelatorioServiceImpl implements RelatorioService {
 
         for (IRowCount x : listaPastaFuncional) {
             relatorio.add(
-                    new ReportDocumentAddressDTO("PASTA_FUNCIONAL", x.getTotal().toString(), x.getEndereco())
+                    new ReportDocumentAddressDTO("PASTA FUNCIONAL", x.getTotal().toString(), x.getEndereco())
             );
         }
 
@@ -218,23 +220,35 @@ public class RelatorioServiceImpl implements RelatorioService {
         return relatorio;
     }
 
-    public List<?> getReportAllDocTypesByUsers(String user_id){
-        List<IUsersRowCount> empregados = empregadoRepository.findAllUers();
+    public List<?> getReportAllDocTypesByUsers(String user_id) {
+        List<IUsersRowCount> empregados;
+        if (user_id != null) {
+            empregados = empregadoRepository.findUserById(Long.parseLong(user_id));
+        } else {
+            empregados = empregadoRepository.findAllUsers();
+        }
         List<ReportDocumentUserDTO> userDocuments = new ArrayList<>();
 
-        for (IUsersRowCount iu : empregados){
-            int total = 0;
-            total += contratoRepository.findAllByUser(Long.parseLong(iu.getId()));
-            total += financeiraRepository.findAllByUser(Long.parseLong(iu.getId()));
-            total += licitacaoRepository.findAllByUser(Long.parseLong(iu.getId()));
-            total += pastaFuncionalRepository.findAllByUser(Long.parseLong(iu.getId()));
-            total += outrosDocRepository.findAllByUser(Long.parseLong(iu.getId()));
+        for (IUsersRowCount iu : empregados) {
+
+            Map<String, String> qtdTiposDocs = new HashMap<>();
+            int c = contratoRepository.findAllByUser(Long.parseLong(iu.getId()));
+            int f = financeiraRepository.findAllByUser(Long.parseLong(iu.getId()));
+            int l = licitacaoRepository.findAllByUser(Long.parseLong(iu.getId()));
+            int p = pastaFuncionalRepository.findAllByUser(Long.parseLong(iu.getId()));
+            int o = outrosDocRepository.findAllByUser(Long.parseLong(iu.getId()));
+            int total = c + f + l + p + o;
+            qtdTiposDocs.put("CONTRATOS", String.valueOf(c));
+            qtdTiposDocs.put("FINANCEIRA", String.valueOf(f));
+            qtdTiposDocs.put("LICITAÇÃO", String.valueOf(l));
+            qtdTiposDocs.put("PASTA FUNCIONAL", String.valueOf(p));
+            qtdTiposDocs.put("OUTROS DOCUMENTOS", String.valueOf(o));
 
             userDocuments.add(
-                    new ReportDocumentUserDTO(Long.parseLong(iu.getId()), iu.getNome(), total)
+                    new ReportDocumentUserDTO(Long.parseLong(iu.getId()), iu.getNome(), total, qtdTiposDocs)
             );
         }
 
-        return  userDocuments;
+        return userDocuments;
     }
 }
