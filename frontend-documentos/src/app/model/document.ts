@@ -5,7 +5,7 @@ export interface Document {
     unidadeProdutora?: String,
     dataLimite?: String,
     dataCriacao?: String,
-    localizacao?: Location,
+    localizacao: Location,
     documentoEncaminhamento?: String,
     numeroCaixaEscritorioOrigem?: String,
     numeroCaixaArquivoCustodia?: String,
@@ -17,6 +17,11 @@ export interface Document {
     unidadeProdutoraDesc?: String,
     classificacaoDocumentalDesc?: String,
     matriculaEmpregado?: String,
-    classificacaoDocumentalId?: Number
+    classificacaoDocumentalId?: Number,
+
+    numeroProcessoLicitatorio?:String,
+
+    dataPagamento?: String,
+	unidadePagamento?: String
 }
 

@@ -42,3 +42,12 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
+<ng-template let-data #modalDialog>
+  <h1 mat-dialog-title>Confirmacao</h1>
+  <div mat-dialog-content> Tem certeza que deseja deletar?</div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Fechar</button>
+    <button class="btn-alert" mat-button [mat-dialog-close]="true" cdkFocusInitial>Deletar</button>
+  </div>
+</ng-template>
+

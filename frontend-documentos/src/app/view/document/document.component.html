@@ -1,19 +1,27 @@
 <div class="borda">
     <h2 class="text-primary text-center">Gestão de Documentos</h2>
 
-    <div class="borda">
-        <select #lista class="form-select" (change)="setDocSelected(lista.value)">
-            <option value="" disabled>SELECIONE</option>
-            <option value="CONTRATO">Contrato</option>
-            <option value="LICITACAO">Licitação</option>
-            <option value="FINANCEIRA">Financeira</option>
-            <option value="PASTA">Pasta Funcional</option>
-            <option value="OUTRO">Outros Assuntos</option>
-        </select>
+    <div class="row">
+        <mat-form-field>
+            <mat-label>Tipo Documento:</mat-label>
+            <mat-select id="documento" class="form-select" #lista
+             (selectionChange)="setDocSelected(lista.value)">
+              <mat-option value="CONTRATO">Contrato</mat-option>
+              <mat-option value="LICITACAO">Licitação</mat-option>
+              <mat-option value="FINANCEIRA">Financeira</mat-option>
+              <mat-option value="PASTA">Pasta Funcional</mat-option>
+              <mat-option value="OUTRO">Outros Assuntos</mat-option>
+            </mat-select>
+        </mat-form-field>
     </div>
+    <mat-divider></mat-divider>
 
+    
     <div class="mb-3" *ngIf="docSelecionado">
 
+        <section *ngIf="action=='ver'">
+
+        </section>
         <section *ngIf="action=='list'">
             <app-document-lista id="listaprincipal" [docSelecionado]="docSelecionado" (backToDocument)="actionDocument($event)"
                 (documentId)="sendIdDocument($event)"></app-document-lista>
