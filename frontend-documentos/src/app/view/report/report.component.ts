@@ -7,14 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
   action: string = "init";
-  idUser: string = "-1";
+  idUser: number = -1;
   constructor() { }
 
   actionUser(action: string) : void {
     this.action = action;
   }
   
-  viewDocsUser(idUser: string) : void {
+  viewDocsUser(idUser: number) : void {
     this.idUser = idUser;
   }
 

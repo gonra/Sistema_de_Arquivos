@@ -1,3 +1,7 @@
 .borda{
     margin-bottom: 10px;
 }
+
+.mat-icon{
+    cursor:pointer;
+}

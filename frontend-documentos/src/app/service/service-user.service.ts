@@ -13,7 +13,7 @@ export class ServiceUserService {
   private readonly urlModule = Parametros.apiurl + "/api/empregado/";
 
     etapa: Number = 1;
-    token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY4MDcyMjUwOSwiZXhwIjoxNjgwNzQwNTA5fQ.Zamk79Rup0bbfroxTMEjTFFXegL8I18NptMLOzoPDGdfr_PQaQk8lbkW8mhjX1Egs5Tr6n5eYkGaO0MnBPFGiw";
+    token = "";
     // @Output() error_message = new EventEmitter();
 
     error_message: EventEmitter<string> = new EventEmitter();

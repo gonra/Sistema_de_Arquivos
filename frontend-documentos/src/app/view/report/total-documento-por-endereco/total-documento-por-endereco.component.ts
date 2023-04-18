@@ -29,9 +29,9 @@ export class TotalDocumentoPorEnderecoComponent implements OnInit {
     this.listLocations();
   }
 
-  onChangeLocation(idAdress : string) : void  {
+  onChangeLocation(idAdress: string) : void  {
     this.endSelecionado = idAdress;
-    this.reportAllDocTypesByAddress = this.reportService.listAllDocTypesByAddress(1);
+    this.reportAllDocTypesByAddress = this.reportService.listAllDocTypesByAddress(this.endSelecionado);
   }
 
   back() {

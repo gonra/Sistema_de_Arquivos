@@ -1,31 +1,40 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ServiceUserService} from "../../../service/service-user.service";
+import {ServiceReportService} from "../../../service/service-report.service";
+import {Report_User} from "../../../model/report-user";
 
 @Component({
-  selector: 'app-total-documento-ingressado-pelo-usuario',
-  templateUrl: './total-documento-ingressado-pelo-usuario.component.html',
-  styleUrls: ['./total-documento-ingressado-pelo-usuario.component.css']
+    selector: 'app-total-documento-ingressado-pelo-usuario',
+    templateUrl: './total-documento-ingressado-pelo-usuario.component.html',
+    styleUrls: ['./total-documento-ingressado-pelo-usuario.component.css']
 })
 export class TotalDocumentoIngressadoPeloUsuarioComponent implements OnInit {
-  @Output() backToUser = new EventEmitter();
-  @Input() idUser = "-1";
-  
-  usuSelecionado!: string;
-  
-  constructor() {}
+    @Output() backToUser = new EventEmitter();
+    @Input() idUser = -1;
 
-  displayedColumns = ['tipoDocumento', 'totalDocumento']
+    userSelecionado!: string;
 
-  ngOnInit(): void {
-    if (this.idUser != "-1") {
-      this. loadDataUser(this.idUser);
+    allTypesDocsByUser! : [];
+
+    constructor(private serviceReportService: ServiceReportService) {
     }
-  }
 
-  setUsuSelected(usuario: string): void {
-    this.usuSelecionado = usuario;
-  }
+    displayedColumns = ['tipoDocumento', 'totalDocumento']
 
-  back() {
-    this.backToUser.emit("init");
-  }
+    ngOnInit(): void {
+        console.log('this.idUser', this.idUser)
+        if (this.idUser > -1) {
+            this.listAllDocTypesByUser(this.idUser);
+        }
+    }
+
+    listAllDocTypesByUser(idUser: number) {
+        this.serviceReportService.listAllDocTypesByUser(idUser).subscribe(e => {
+            this.allTypesDocsByUser = e[0].qtdTiposDocs;
+        });
+    }
+
+    back() {
+        this.backToUser.emit("totDocIngPorUsu");
+    }
 }

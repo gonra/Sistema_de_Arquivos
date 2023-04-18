@@ -16,11 +16,11 @@
                 Total de documentos ingresados por usuario
             </button>
         </div>
-        <div class="form-group">
-            <button class="btn btn-primary" (click)="actionUser('totDocIngPeloUsu')">
-                Total de documentos ingresados pelo usuario
-            </button>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <button class="btn btn-primary" (click)="actionUser('totDocIngPeloUsu')">-->
+<!--                Total de documentos ingresados pelo usuario-->
+<!--            </button>-->
+<!--        </div>-->
     </section>
     <section *ngIf="action=='totcaixtipdoc'">
         <app-total-caixa-tipo-doc (backToUser)="actionUser($event)"></app-total-caixa-tipo-doc>
@@ -29,7 +29,7 @@
         <app-total-documento-por-endereco (backToUser)="actionUser($event)"></app-total-documento-por-endereco>
     </section>
     <section *ngIf="action=='totDocIngPorUsu'">
-        <app-total-documento-ingressado-por-usuario-por-tipo-doc (viewDocsUser)="viewDocsUser($event)" (backToUser)="actionUser($event)"></app-total-documento-ingressado-por-usuario-por-tipo-doc>
+        <app-total-documento-ingressado-por-usuario-por-tipo-doc (viewDocsUserId)="viewDocsUser($event)" (backToUser)="actionUser($event)"></app-total-documento-ingressado-por-usuario-por-tipo-doc>
     </section>
     <section *ngIf="action=='totDocIngPeloUsu'">
         <app-total-documento-ingressado-pelo-usuario [idUser]="idUser" (backToUser)="actionUser($event)"></app-total-documento-ingressado-pelo-usuario>

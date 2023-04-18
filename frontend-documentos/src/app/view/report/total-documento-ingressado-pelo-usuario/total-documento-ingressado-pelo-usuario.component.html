@@ -1,25 +1,18 @@
 <div class="borda">
-    <h2 class="text-primary text-center">Total de documentos ingressados pelo usaurio</h2>
-    <div class="borda">
-        <select #lista class="form-select" (change)="setUsuSelected(lista.value)">
-            <option value="">SELECIONE</option>
-            <option value="CONTRATO">Usuario 1</option>
-            <option value="LICITACAO">Usuario 2</option>
-        </select>
-    </div>
-    <div class="mb-3" *ngIf="usuSelecionado">
+    <h2 class="text-primary text-center">Total de documentos ingressados pelo usuário</h2>
+    <div class="mb-3">
         <div class="borda">
-            <table mat-table class="mat-elevation-z8">
+            <table [dataSource]="allTypesDocsByUser" mat-table class="mat-elevation-z8">
                 <!-- Matricula Column -->
                 <ng-container matColumnDef="tipoDocumento">
                     <th mat-header-cell *matHeaderCellDef> Tipo documento </th>
-                    <td mat-cell> Contrato </td>
+                    <td mat-cell *matCellDef="let reportItem"> {{reportItem.tipo}} </td>
                 </ng-container>
             
               <!-- Nome Column -->
               <ng-container matColumnDef="totalDocumento">
                 <th mat-header-cell *matHeaderCellDef> Total de documentos </th>
-                <td mat-cell> 50 </td>
+                  <td mat-cell *matCellDef="let reportItem"> {{reportItem.qtd}} </td>
               </ng-container>
             
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

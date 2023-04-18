@@ -10,6 +10,7 @@ import { Report_User } from 'src/app/model/report-user';
 })
 export class TotalDocumentoIngressadoPorUsuarioPorTipoDocComponent implements OnInit {
   @Output() backToUser = new EventEmitter();
+  @Output() viewDocsUserId = new EventEmitter();
   reportAllDocTypesByUsers: Observable<Report_User[]>;
   
   constructor(public serviceReport: ServiceReportService) {
@@ -30,7 +31,8 @@ export class TotalDocumentoIngressadoPorUsuarioPorTipoDocComponent implements On
     this.backToUser.emit("init");
   }
   
-  viewDocsUser(idUser: string) {
-    this.back();    
+  viewDocsUser(idUser: number) {
+    this.backToUser.emit("totDocIngPeloUsu");
+    this.viewDocsUserId.emit(idUser);
   }
 }
