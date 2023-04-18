@@ -12,7 +12,7 @@ public interface RelatorioService {
 //
 //	public RelatorioDocumentoUnidadeDTO gerarRelatorio2(FiltroRelatorioDocumentoUnidadeDTO filtro);
 
-	List<ReportDocumentAddressDTO> getReportAllDocTypesByAddress(String endereco);
-
+    List<ReportDocumentAddressDTO> getReportAllDocTypesByAddress(String endereco);
+    List<ReportDocumentAddressDTO> getReportNumberOfBoxesByAllDocTypes();
 	List<?> getReportAllDocTypesByUsers(String user_id);
 }

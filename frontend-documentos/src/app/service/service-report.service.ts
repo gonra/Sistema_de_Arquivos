@@ -20,6 +20,7 @@ export class ServiceReportService {
     private readonly urlModule = Parametros.apiurl + "/api/localizacoes";
     private readonly urlReportModule = Parametros.apiurl + "/api/reports/docs_address/";
     private readonly urlReportModuleUser = Parametros.apiurl + "/api/reports/docs_users/";
+    private readonly urlReportModuleBoxes = Parametros.apiurl + "/api/reports/docs_boxes";
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -56,6 +57,10 @@ export class ServiceReportService {
 
     listAllDocTypesByUser(idUser: number): Observable<Report_User[]> {
         return this.httpClient.get<Report_User[]>(this.urlReportModuleUser + idUser, this.httpOptions);
+    }
+
+    listNumberOfBoxesByDocTypes(): Observable<Report[]> {
+        return this.httpClient.get<Report[]>(this.urlReportModuleBoxes, this.httpOptions);
     }
 
 }

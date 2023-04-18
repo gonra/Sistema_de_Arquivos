@@ -9,12 +9,12 @@ import java.util.stream.Collectors;
 import com.atos.inventario.atosdto.EmpregadoRequestDTO;
 import com.atos.inventario.atosdto.EmpregadoResponseDTO;
 import com.atos.inventario.atosdto.FiltroPesquisaEmpregadoDTO;
-import com.atos.inventario.atosdto.FinanceiraDTO;
 import com.atos.inventario.atosdto.LoginRequestDTO;
 import com.atos.inventario.atosdto.LoginResponseDTO;
 import com.atos.inventario.enums.DepartamentoEmpregadoEnum;
 
-import org.modelmapper.ModelMapper;
+import com.atos.inventario.enums.RolesEnum;
+import com.atos.inventario.model.RoleEmpregado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -28,7 +28,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.atos.inventario.model.Empregado;
-import com.atos.inventario.model.Financeira;
 import com.atos.inventario.repositories.EmpregadoRepository;
 import com.atos.inventario.repositories.RoleEmpregadoRepository;
 import com.atos.inventario.security.JwtUtils;
@@ -44,7 +43,7 @@ public class EmpregadoController {
 
     @Autowired
     AuthenticationManager authenticationManager;
-    
+
     @Autowired
     private AtividadeEmpregadoService log;
 
@@ -241,5 +240,26 @@ public class EmpregadoController {
         }
 
         return ResponseEntity.ok(new EmpregadoResponseDTO(emp));
+    }
+
+    @PostMapping("toggle-adm")
+    public ResponseEntity<?> toggleAdmin(@RequestBody Map<String, String> data) {
+        System.out.println(data);
+        Empregado emp;
+        Optional<Empregado> empregado = empregadoRepository.findById(Long.valueOf(data.get("idUser")));
+
+        if (empregado.isPresent()) {
+            emp = empregado.get();
+            if (data.get("admin").equals("true")) {
+                emp.getRoles().add(roleEmpregadoRepository.getById(1L));
+            } else {
+                emp.getRoles().removeIf(e-> e.getIdRoleEmpregado() == RolesEnum.ADMIN.getRolId());
+            }
+
+            emp = empregadoRepository.save(emp);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(emp);
     }
 }

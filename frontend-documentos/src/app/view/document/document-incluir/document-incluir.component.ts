@@ -122,7 +122,6 @@ export class DocumentIncluirComponent implements OnInit {
       { data: "Sucesso", height: '300px', width: '400px' });
 
     this.dialogRef.afterClosed().subscribe(() => {
-      console.log('The Info dialog was closed.');
       this.onChangeTipoDocumento();
     });
   }

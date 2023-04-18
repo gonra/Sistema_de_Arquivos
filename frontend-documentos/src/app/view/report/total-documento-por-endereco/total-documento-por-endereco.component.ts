@@ -40,7 +40,6 @@ export class TotalDocumentoPorEnderecoComponent implements OnInit {
 
   listLocations() {
     this.locations = this.localizacaoService.listLocations();
-    console.log(this.locations);
   }
 
 }

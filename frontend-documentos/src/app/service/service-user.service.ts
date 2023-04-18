@@ -72,5 +72,13 @@ export class ServiceUserService {
       return this.httpClient.put<User>(this.urlModule + 'update-logged-user', user, this.httpOptions);
     }
 
-  
+    toggleAdmin(idUser: number, toggle: boolean){
+        var data = {
+            idUser: idUser,
+            admin: toggle
+        };
+        return this.httpClient.post(
+            Parametros.apiurl+'/api/toggle-adm', data, this.httpOptions
+        )
+    }
 }

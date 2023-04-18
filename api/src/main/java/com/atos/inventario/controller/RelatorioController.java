@@ -27,9 +27,14 @@ public class RelatorioController {
 //		return ResponseEntity.ok(relatorioService.gerarRelatorio2(filtro));
 //	}
 
-	@GetMapping({"/reports/docs_address", "/reports/docs_address/{endereco_id}"})
+	@GetMapping({ "/reports/docs_address/{endereco_id}"})
 	public ResponseEntity<List<ReportDocumentAddressDTO>> getReportAllDocTypesByAddress(@PathVariable(required = false)  String endereco_id) {
 		return ResponseEntity.ok(relatorioService.getReportAllDocTypesByAddress(endereco_id));
+	}
+
+	@GetMapping({"/reports/docs_boxes"})
+	public ResponseEntity<List<ReportDocumentAddressDTO>> getReportNumberOfBoxesByAllDocTypes() {
+		return ResponseEntity.ok(relatorioService.getReportNumberOfBoxesByAllDocTypes());
 	}
 
 	@GetMapping({"/reports/docs_users", "/reports/docs_users/{user_id}"})

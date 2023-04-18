@@ -21,6 +21,18 @@
     <td mat-cell *matCellDef="let userItem"> {{userItem.departamentoDesc}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="admin">
+    <th mat-header-cell *matHeaderCellDef> Administrador </th>
+    <td mat-cell *matCellDef="let userItem" >
+      <button  *ngIf="!isAdmin(userItem.roles)" class="btn btn-primary" (click)="turnOn(userItem.idEmpregado)">
+        Ativar
+      </button>
+      <button *ngIf="isAdmin(userItem.roles)" class="btn btn-secondary" (click)="turnOff(userItem.idEmpregado)">
+        Desativar
+      </button>
+    </td>
+  </ng-container>
+
   <!-- Action Column -->
   <ng-container matColumnDef="edit">
     <th mat-header-cell *matHeaderCellDef> Editar </th>

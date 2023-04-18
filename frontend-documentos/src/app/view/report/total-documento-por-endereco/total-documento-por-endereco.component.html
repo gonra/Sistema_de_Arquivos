@@ -4,7 +4,7 @@
         <select #val class="form-select" (change)="onChangeLocation(val.value)">
             <option selected disabled>SELECIONE</option>
             <option *ngFor="let location of locations | async" [value]= "location.idLocalizacao">
-                {{location.endereco}}
+                {{location.endereco + ", Prédio:" + location.predio + ", Sala:" + location.sala + ", Bl:" + location.bloco + ", Cx:" + location.numeroCaixa}}
         </select>
     </div>
     <div class="mb-3" *ngIf="endSelecionado">

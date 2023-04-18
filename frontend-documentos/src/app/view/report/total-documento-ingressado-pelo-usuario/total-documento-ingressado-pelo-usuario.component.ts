@@ -22,7 +22,6 @@ export class TotalDocumentoIngressadoPeloUsuarioComponent implements OnInit {
     displayedColumns = ['tipoDocumento', 'totalDocumento']
 
     ngOnInit(): void {
-        console.log('this.idUser', this.idUser)
         if (this.idUser > -1) {
             this.listAllDocTypesByUser(this.idUser);
         }

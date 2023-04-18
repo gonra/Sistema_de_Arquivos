@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.atos.inventario.model.Empregado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -125,17 +124,13 @@ public class RelatorioServiceImpl implements RelatorioService {
 //	}
 
 //	@Override
-//	public RelatorioDocumentoUnidadeDTO gerarRelatorio2(FiltroRelatorioDocumentoUnidadeDTO filtro) {
+//	public RelatorioDocumentoUnidadeDTO getSizeDocsOnBoxes() {
 //		RelatorioDocumentoUnidadeDTO relatorio = new RelatorioDocumentoUnidadeDTO();
-//		relatorio.setFiltro(filtro);
 //		Long numeroFila = 1L;
 //
 //		List<IRowCount> listaLocalizacao = new ArrayList<>();
-//		if (filtro.getPredio() == null) {
-//			listaLocalizacao.addAll(localizacaoRepository.pesquisaAgrupadaEndereco(filtro.getUnidade()));
-//		} else {
-//			listaLocalizacao.addAll(localizacaoRepository.pesquisaAgrupadaEnderecoPredio(filtro.getUnidade(), filtro.getPredio()));
-//		}
+//
+//        listaLocalizacao.addAll(localizacaoRepository.getNumbersOfBoxByTypeDocs();
 //
 //		for(IRowCount x : listaLocalizacao) {
 //			String fila = "FILA"+numeroFila.toString();
@@ -148,7 +143,6 @@ public class RelatorioServiceImpl implements RelatorioService {
 //		return relatorio;
 //	}
 
-
     public List<ReportDocumentAddressDTO> getReportAllDocTypesByAddress(String endereco_id) {
         List<ReportDocumentAddressDTO> relatorio = new ArrayList<>();
         long numeroFila = 1L;
@@ -157,7 +151,7 @@ public class RelatorioServiceImpl implements RelatorioService {
         if (endereco_id != null) {
             listaContrato.addAll(contratoRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
         } else {
-            listaContrato.addAll(contratoRepository.search());
+            listaContrato.addAll(contratoRepository.pesquisaAgrupadaEnderecoPredio());
         }
 
         for (IRowCount x : listaContrato) {
@@ -176,7 +170,7 @@ public class RelatorioServiceImpl implements RelatorioService {
         if (endereco_id != null) {
             listaFinanceira.addAll(financeiraRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
         } else {
-            listaFinanceira.addAll(financeiraRepository.search());
+            listaFinanceira.addAll(financeiraRepository.pesquisaAgrupadaEnderecoPredio());
         }
 
         for (IRowCount x : listaFinanceira) {
@@ -194,7 +188,7 @@ public class RelatorioServiceImpl implements RelatorioService {
         if (endereco_id != null) {
             listaLicitacao.addAll(licitacaoRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
         } else {
-            listaLicitacao.addAll(licitacaoRepository.search());
+            listaLicitacao.addAll(licitacaoRepository.pesquisaAgrupadaEnderecoPredio());
         }
 
         for (IRowCount x : listaLicitacao) {
@@ -212,7 +206,7 @@ public class RelatorioServiceImpl implements RelatorioService {
         if (endereco_id != null) {
             listaPastaFuncional.addAll(pastaFuncionalRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
         } else {
-            listaPastaFuncional.addAll(pastaFuncionalRepository.search());
+            listaPastaFuncional.addAll(pastaFuncionalRepository.pesquisaAgrupadaEnderecoPredio());
         }
 
         for (IRowCount x : listaPastaFuncional) {
@@ -230,7 +224,7 @@ public class RelatorioServiceImpl implements RelatorioService {
         if (endereco_id != null) {
             listaOutroDoc.addAll(outrosDocRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
         } else {
-            listaOutroDoc.addAll(outrosDocRepository.search());
+            listaOutroDoc.addAll(outrosDocRepository.pesquisaAgrupadaEnderecoPredio());
         }
 
         for (IRowCount x : listaOutroDoc) {
@@ -243,6 +237,42 @@ public class RelatorioServiceImpl implements RelatorioService {
             relatorio.add(
                     new ReportDocumentAddressDTO("OUTROS DOCUMENTOS", "0", null)
             );
+        return relatorio;
+    }
+
+    public List<ReportDocumentAddressDTO> getReportNumberOfBoxesByAllDocTypes() {
+        List<ReportDocumentAddressDTO> relatorio = new ArrayList<>();
+        long numeroFila = 1L;
+
+        List<IRowCount> listaContrato = new ArrayList<>(contratoRepository.pesquisaAgrupadaEnderecoPredio());
+
+        relatorio.add(
+                new ReportDocumentAddressDTO("CONTRATOS", String.valueOf(listaContrato.size()), null)
+        );
+
+        List<IRowCount> listaFinanceira = new ArrayList<>(financeiraRepository.pesquisaAgrupadaEnderecoPredio());
+
+        relatorio.add(
+                new ReportDocumentAddressDTO("FINANCEIRA", String.valueOf(listaFinanceira.size()), null)
+        );
+
+        List<IRowCount> listaLicitacao = new ArrayList<>(licitacaoRepository.pesquisaAgrupadaEnderecoPredio());
+
+        relatorio.add(
+                new ReportDocumentAddressDTO("LICITAÇÃO", String.valueOf(listaLicitacao.size()), null)
+        );
+
+        List<IRowCount> listaPastaFuncional = new ArrayList<>(pastaFuncionalRepository.pesquisaAgrupadaEnderecoPredio());
+
+        relatorio.add(
+                new ReportDocumentAddressDTO("PASTA FUNCIONAL", String.valueOf(listaPastaFuncional.size()), null)
+        );
+
+        List<IRowCount> listaOutroDoc = new ArrayList<>(outrosDocRepository.pesquisaAgrupadaEnderecoPredio());
+        relatorio.add(
+                new ReportDocumentAddressDTO("OUTROS DOCUMENTOS", String.valueOf(listaOutroDoc.size()), null)
+        );
+
         return relatorio;
     }
 
