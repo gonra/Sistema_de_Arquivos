@@ -1,6 +1,8 @@
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ServiceDocumentService } from 'src/app/service/service-document.service';
+import { ServiceLoginService } from 'src/app/service/service-login.service';
+import { MatDialog } from '@angular/material/dialog';
 import { Document } from 'src/app/model/document';
 import { Location } from 'src/app/model/localizacao';
 
@@ -13,32 +15,47 @@ export class DocumentAlterarComponent implements OnInit {
   @Output() backToDocument = new EventEmitter();
   @Input() documentId: number = -1;
   @Input() docSelecionado: string = "";
+  @Input() tipoDocumento : string = "";
 
   formUpdateDocument: FormGroup;
-
-  unidadeProdutora: string = "";
-  dataLimite: string = "";
-  dataCriacao: string = "";
-  localizacao: Location = { idLocalizacao: 0, endereco: '', predio: '', sala: '', bloco: '', posicao: '', numeroCaixa: '' };
-  documentoEncaminhamento: string = "";
-  numeroCaixaEscritorioOrigem: string = "";
-  numeroCaixaArquivoCustodia: string = "";
-  numeroContrato: string = "";
-  numeroPec: string = "";
-  empresaContratada: string = "";
-  objetoResumido: string = "";
-  nomeEmpregado: string = "";
-  unidadeProdutoraDesc: string = "";
-  classificacaoDocumentalDesc: string = "";
-  matriculaEmpregado: string = "";
-  classificacaoDocumentalId!: Number;
+  dataPagamentoLocal: FormControl;
+  dataLimiteLocal: FormControl;
 
   constructor(private formBuilder: FormBuilder,
-    public documentService: ServiceDocumentService) {
-    this.formUpdateDocument = new FormGroup({
-      documentoEncaminhamento: new FormControl(''),
-      unidadeProdutora: new FormControl('')
-    });
+    public documentService: ServiceDocumentService,
+    public loginService: ServiceLoginService) {
+      this.dataLimiteLocal = new FormControl('');
+      this.dataPagamentoLocal = new FormControl('');
+      this.formUpdateDocument = new FormGroup({
+        empregadoId: new FormControl(this.loginService.currentEmpregadoId),
+        documentoEncaminhamento: new FormControl(''),
+        unidadeProdutoraId: new FormControl(''),
+        classificacaoDocumentalId: new FormControl(''),
+        dataLimite: new FormControl(''),
+        dataCriacao: new FormControl(''),
+  
+        numeroCaixaEscritorioOrigem: new FormControl(''),
+        numeroCaixaArquivoCustodia: new FormControl(''),
+        numeroContrato: new FormControl(''),
+        numeroPec: new FormControl(''),
+        empresaContratada: new FormControl(''),
+        objetoResumido: new FormControl(''),
+  
+        numeroProcessoLicitatorio: new FormControl(''),
+  
+        dataPagamento: new FormControl(''),
+        unidadePagamento: new FormControl(''),
+  
+        localizacao : new FormGroup({      
+          endereco: new FormControl(''),
+          predio: new FormControl(''),
+          sala: new FormControl(''),
+          bloco: new FormControl(''),
+          posicao: new FormControl(''),
+          numeroCaixa: new FormControl('')
+        })
+      });
+
   }
 
   back() {
@@ -46,27 +63,6 @@ export class DocumentAlterarComponent implements OnInit {
   }
 
   update(): void {
-    /*let document: Document = new Document();
-    document.id = this.documentId;
-    document.unidadeProdutora = this.unidadeProdutora;
-    document.dataLimite = this.dataLimite;
-    document.dataCriacao = this.dataCriacao;
-    document.localizacao = this.localizacao;
-    document.documentoEncaminhamento = this.documentoEncaminhamento;
-    document.numeroCaixaEscritorioOrigem = this.numeroCaixaEscritorioOrigem;
-    document.numeroCaixaArquivoCustodia = this.numeroCaixaArquivoCustodia;
-    document.numeroContrato = this.numeroContrato;
-    document.numeroPec = this.numeroPec;
-    document.empresaContratada = this.empresaContratada;
-    document.objetoResumido = this.objetoResumido;
-    document.nomeEmpregado = this.nomeEmpregado;
-    document.unidadeProdutoraDesc = this.unidadeProdutoraDesc;
-    document.classificacaoDocumentalDesc = this.classificacaoDocumentalDesc;
-    document.matriculaEmpregado = this.matriculaEmpregado;
-    document.classificacaoDocumentalId = this.classificacaoDocumentalId;
-
-    this.documentService.salvarDocumento(this.documentId, document, this.docSelecionado)
-      .subscribe(document => this.formUpdateDocument.patchValue(document));*/
     this.backToDocument.emit("list");
   }
 
@@ -78,8 +74,33 @@ export class DocumentAlterarComponent implements OnInit {
 
   loadDataDocument(id: number) {
     this.formUpdateDocument = this.formBuilder.group({
+      empregadoId: this.loginService.currentEmpregadoId,
       documentoEncaminhamento: [''],
-      unidadeProdutora: ['']
+      unidadeProdutoraId: [''],
+      classificacaoDocumentalId: [''],
+      dataLimite: [''],
+      dataCriacao:[''],
+
+	    numeroCaixaEscritorioOrigem: [''],
+	    numeroCaixaArquivoCustodia: [''],
+	    numeroContrato: [''],
+	    numeroPec: [''],
+	    empresaContratada: [''],
+	    objetoResumido: [''],
+
+      numeroProcessoLicitatorio: [''],
+
+      dataPagamento: [''],
+	    unidadePagamento: [''],
+
+	    localizacao : this.formBuilder.group({      
+        endereco: [''],
+        predio: [''],
+        sala: [''],
+        bloco: [''],
+        posicao: [''],
+        numeroCaixa: ['']
+      })
     });
 
     this.documentService
