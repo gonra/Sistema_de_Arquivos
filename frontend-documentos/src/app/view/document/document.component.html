@@ -1,7 +1,7 @@
 <div class="borda">
     <h2 class="text-primary text-center">Gestão de Documentos</h2>
 
-    <div class="row">
+    <div class="row" *ngIf="action!='edit'">
         <mat-form-field>
             <mat-label>Tipo Documento:</mat-label>
             <mat-select id="documento" class="form-select" #lista
@@ -18,16 +18,14 @@
 
     
     <div class="mb-3" *ngIf="docSelecionado">
-
-        <section *ngIf="action=='ver'">
-
-        </section>
         <section *ngIf="action=='list'">
             <app-document-lista id="listaprincipal" [docSelecionado]="docSelecionado" (backToDocument)="actionDocument($event)"
                 (documentId)="sendIdDocument($event)"></app-document-lista>
         </section>
         <section *ngIf="action=='edit'">
-            <app-document-alterar [docSelecionado]="docSelecionado" [documentId]="documentId"
+            <h2 class="text-primary text-center">Edicão de Documento</h2>
+            <app-document-alterar [docSelecionado]="docSelecionado" 
+              [documentId]="documentId" [tipoDocumento]="docSelecionado"
                 (backToDocument)="actionDocument($event)"></app-document-alterar>
         </section>
     </div>
