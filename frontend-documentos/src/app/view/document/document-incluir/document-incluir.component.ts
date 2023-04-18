@@ -106,8 +106,10 @@ export class DocumentIncluirComponent implements OnInit {
     this.formCreateDocument.value.dataLimite = dtLimite.toISOString().substring(0,10);
     var dtCriacao = new Date();
     this.formCreateDocument.value.dataCriacao = dtCriacao.toISOString().substring(0,10);
-    var dtPagamento = new Date(this.dataPagamentoLocal.value);
-    this.formCreateDocument.value.dataPagamento = dtPagamento.toISOString().substring(0,10);
+    if (this.tipoDocumento.value == "FINANCEIRA") {
+      var dtPagamento = new Date(this.dataPagamentoLocal.value);
+      this.formCreateDocument.value.dataPagamento = dtPagamento.toISOString().substring(0,10);
+    }
     this.documentService.guardarDocumento(this.formCreateDocument.value, this.tipoDocumento.value).subscribe(() => {
       console.warn("Cadastro realizado com sucesso");
       this.openInfoDialog();
