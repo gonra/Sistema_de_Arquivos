@@ -1,20 +1,194 @@
 <div class="no-style" style="margin-left: 4px">
-    <div class="container">
-      <h1>Update Documento</h1>
-      <form [formGroup]="formUpdateDocument" (ngSubmit)="update()">
-        <div class="form-group">
-            <label for="documentoEncaminhamento">Documento Encaminhamento: </label>
-            <input id="documentoEncaminhamento" type="text" required class="form-control" formControlName="documentoEncaminhamento">
+  <div class="container">
+    <h1>Update Documento</h1>
+    <form [formGroup]="formUpdateDocument" (ngSubmit)="update()">
+      <p>Editar {{tipoDocumento}}</p>
+      <mat-divider></mat-divider>
+      <div id="formulario">
+        <p>Dados do Documento</p>
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field hintLabel="Classificacao Documental" appearance="outline">
+              <mat-label>Classificacao Documental:</mat-label>
+              <mat-select required id="classificacaoDocumentalId" class="form-select"
+                formControlName="classificacaoDocumentalId">
+                <mat-option value="101">Normatização. Regulamentação</mat-option>
+                <mat-option value="102">Relacionamento Institucional</mat-option>
+                <mat-option value="111">Desenvolvimento de produtos e serviços aeroportuários</mat-option>
+                <mat-option value="112">Prospecção de clientes e parceiros</mat-option>
+                <mat-option value="113">Gestão do Mix Comercial dos aeroportos</mat-option>
+                <mat-option value="114">Concessão de áreas dos aeródromos</mat-option>
+                <mat-option value="115">Gestão da qualidade de produtos e serviços aeroportuários</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
-    
-        <div class="form-group">
-          <label for="unidadeProdutora">Unidade Produtora: </label>
-          <input id="unidadeProdutora" type="text" required class="form-control" formControlName="unidadeProdutora">
+          <div class="col-md-4">
+            <mat-form-field hintLabel="Unidade Produtora" appearance="outline">
+              <mat-label>Unidade Produtora:</mat-label>
+              <mat-select required id="unidadeProdutoraId" class="form-select" formControlName="unidadeProdutoraId">
+                <mat-option value="100">SEDE</mat-option>
+                <mat-option value="101">Aeroporto de Brasilia</mat-option>
+                <mat-option value="102">Aeroporto de Congonhas</mat-option>
+                <mat-option value="103">Aeroporto de Manaus</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field hintLabel="Unidade Pagamento" appearance="outline"
+              *ngIf="tipoDocumento == 'FINANCEIRA'">
+              <mat-label>Unidade Pagamento:</mat-label>
+              <mat-select id="unidadePagamento" class="form-select" formControlName="unidadePagamento">
+                <mat-option value="CONTABILIDADE GERAL">CONTABILIDADE GERAL</mat-option>
+                <mat-option value="GASTOS GERAIS">GASTOS GERAIS</mat-option>
+                <mat-option value="GASTOS EXTRAORDINARIOS">GASTOS EXTRAORDINARIOS</mat-option>
+                <mat-option value="GASTOS OPERATIVOS">GASTOS OPERATIVOS</mat-option>
+                <mat-option value="INVESTIMENTO">INVESTIMENTO</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
         </div>
-  
-        <button type="submit" class="btn btn-primary">Update</button> |
-        <button (click)="back()" class="btn btn-secondary">Back</button>
-      </form>
-    </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field hintLabel="" appearance="outline">
+              <mat-label>Empresa Contratada:</mat-label>
+              <input matInput #input maxlength="10" formControlName="empresaContratada" ng-model="empresaContratada"
+                placeholder="" type="text" class="form-control">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field hintLabel="" appearance="outline">
+              <mat-label>Objeto Resumido:</mat-label>
+              <input matInput #input maxlength="60" formControlName="objetoResumido" ng-model="objetoResumido"
+                placeholder="" type="text" class="form-control">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field hintLabel="" appearance="outline">
+              <mat-label>Documento Encaminhamento:</mat-label>
+              <input matInput #input maxlength="40" formControlName="documentoEncaminhamento"
+                ng-model="documentoEncaminhamento" placeholder="" type="text" class="form-control">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        <div class="row">
+          <p>Informacao adicional</p>
+          <div class="col-md-4">
+            <mat-form-field hintLabel="" appearance="outline">
+              <mat-label>Numero Pec:</mat-label>
+              <input matInput #input maxlength="6" formControlName="numeroPec" ng-model="numeroPec" placeholder=""
+                type="text" class="form-control">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field appearance="outline" class="mydate-form-field">
+              <mat-label>Data Limite</mat-label>
+              <input matInput [matDatepicker]="datepicker" [formControl]="dataLimiteLocal" ng-model="dataLimiteLocal">
+              <mat-hint>DD/MM/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker>
+              </mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4" *ngIf="tipoDocumento == 'FINANCEIRA'">
+            <mat-form-field appearance="outline" class="mydate-form-field">
+              <mat-label>Data Pagamento</mat-label>
+              <input matInput [matDatepicker]="datepicker" [formControl]="dataPagamentoLocal"
+                ng-model="dataPagamentoLocal">
+              <mat-hint>DD/MM/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker>
+              </mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4" *ngIf="tipoDocumento == 'CONTRATO'">
+            <mat-form-field hintLabel="" appearance="outline">
+              <mat-label>Numero Contrato:</mat-label>
+              <input matInput #input maxlength="40" formControlName="numeroContrato" ng-model="numeroContrato"
+                placeholder="" type="text" class="form-control">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4" *ngIf="tipoDocumento == 'LICITACAO'">
+            <mat-form-field hintLabel="" appearance="outline">
+              <mat-label>Numero Processo Licitatorio:</mat-label>
+              <input matInput #input maxlength="40" formControlName="numeroProcessoLicitatorio"
+                ng-model="numeroProcessoLicitatorio" placeholder="" type="text" class="form-control">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field hintLabel="" appearance="outline">
+              <mat-label>Numero Caixa Escritorio Origem:</mat-label>
+              <input matInput #input maxlength="40" formControlName="numeroCaixaEscritorioOrigem"
+                ng-model="numeroCaixaEscritorioOrigem" placeholder="" type="text" class="form-control">
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field hintLabel="" appearance="outline">
+              <mat-label>Numero Caixa Arquivo Custodia:</mat-label>
+              <input matInput #input maxlength="40" formControlName="numeroCaixaArquivoCustodia"
+                ng-model="numeroCaixaArquivoCustodia" placeholder="" type="text" class="form-control">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        <div formGroupName="localizacao">
+          <div class="row">
+            <p>Localizacao</p>
+            <div class="col-md-4">
+              <mat-form-field hintLabel="" appearance="outline">
+                <mat-label>Endereco:</mat-label>
+                <input matInput #input maxlength="40" formControlName="endereco" ng-model="endereco" placeholder=""
+                  type="text" class="form-control">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field hintLabel="" appearance="outline">
+                <mat-label>Predio:</mat-label>
+                <input matInput #input maxlength="40" formControlName="predio" ng-model="predio" placeholder=""
+                  type="text" class="form-control">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field hintLabel="" appearance="outline">
+                <mat-label>Sala:</mat-label>
+                <input matInput #input maxlength="40" formControlName="sala" ng-model="sala" placeholder="" type="text"
+                  class="form-control">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <mat-form-field hintLabel="" appearance="outline">
+                <mat-label>Bloco:</mat-label>
+                <input matInput #input maxlength="40" formControlName="bloco" ng-model="bloco" placeholder=""
+                  type="text" class="form-control">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field hintLabel="" appearance="outline">
+                <mat-label>Posicao:</mat-label>
+                <input matInput #input maxlength="40" formControlName="posicao" ng-model="posicao" placeholder=""
+                  type="text" class="form-control">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
+              <mat-form-field hintLabel="" appearance="outline">
+                <mat-label>Numero Caixa:</mat-label>
+                <input matInput #input maxlength="40" formControlName="numeroCaixa" ng-model="numeroCaixa"
+                  placeholder="" type="text" class="form-control">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>  
+
+
+    </form>
   </div>
-  
+</div>
