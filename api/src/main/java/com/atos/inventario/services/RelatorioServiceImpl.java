@@ -166,6 +166,12 @@ public class RelatorioServiceImpl implements RelatorioService {
             );
         }
 
+        if (listaContrato.size() == 0)
+            relatorio.add(
+                    new ReportDocumentAddressDTO("CONTRATOS", "0", null)
+            );
+
+
         List<IRowCount> listaFinanceira = new ArrayList<>();
         if (endereco_id != null) {
             listaFinanceira.addAll(financeiraRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
@@ -178,6 +184,11 @@ public class RelatorioServiceImpl implements RelatorioService {
                     new ReportDocumentAddressDTO("FINANCEIRA", x.getTotal().toString(), x.getEndereco())
             );
         }
+
+        if (listaFinanceira.size() == 0)
+            relatorio.add(
+                    new ReportDocumentAddressDTO("FINANCEIRA", "0", null)
+            );
 
         List<IRowCount> listaLicitacao = new ArrayList<>();
         if (endereco_id != null) {
@@ -192,6 +203,11 @@ public class RelatorioServiceImpl implements RelatorioService {
             );
         }
 
+        if (listaLicitacao.size() == 0)
+            relatorio.add(
+                    new ReportDocumentAddressDTO("LICITAÇÃO", "0", null)
+            );
+
         List<IRowCount> listaPastaFuncional = new ArrayList<>();
         if (endereco_id != null) {
             listaPastaFuncional.addAll(pastaFuncionalRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
@@ -205,6 +221,11 @@ public class RelatorioServiceImpl implements RelatorioService {
             );
         }
 
+        if (listaPastaFuncional.size() == 0)
+            relatorio.add(
+                    new ReportDocumentAddressDTO("PASTA FUNCIONAL", "0", null)
+            );
+
         List<IRowCount> listaOutroDoc = new ArrayList<>();
         if (endereco_id != null) {
             listaOutroDoc.addAll(outrosDocRepository.pesquisaAgrupadaEndereco(Long.parseLong(endereco_id)));
@@ -217,6 +238,11 @@ public class RelatorioServiceImpl implements RelatorioService {
                     new ReportDocumentAddressDTO("OUTROS DOCUMENTOS", x.getTotal().toString(), x.getEndereco())
             );
         }
+
+        if (listaOutroDoc.size() == 0)
+            relatorio.add(
+                    new ReportDocumentAddressDTO("OUTROS DOCUMENTOS", "0", null)
+            );
         return relatorio;
     }
 
@@ -231,18 +257,47 @@ public class RelatorioServiceImpl implements RelatorioService {
 
         for (IUsersRowCount iu : empregados) {
 
-            Map<String, String> qtdTiposDocs = new HashMap<>();
+            List<Map<String, String>> qtdTiposDocs = new ArrayList<Map<String, String>>();
             int c = contratoRepository.findAllByUser(Long.parseLong(iu.getId()));
             int f = financeiraRepository.findAllByUser(Long.parseLong(iu.getId()));
             int l = licitacaoRepository.findAllByUser(Long.parseLong(iu.getId()));
             int p = pastaFuncionalRepository.findAllByUser(Long.parseLong(iu.getId()));
             int o = outrosDocRepository.findAllByUser(Long.parseLong(iu.getId()));
             int total = c + f + l + p + o;
-            qtdTiposDocs.put("CONTRATOS", String.valueOf(c));
-            qtdTiposDocs.put("FINANCEIRA", String.valueOf(f));
-            qtdTiposDocs.put("LICITAÇÃO", String.valueOf(l));
-            qtdTiposDocs.put("PASTA FUNCIONAL", String.valueOf(p));
-            qtdTiposDocs.put("OUTROS DOCUMENTOS", String.valueOf(o));
+            qtdTiposDocs.add(new HashMap<String, String>() {
+                {
+                    put("tipo", "CONTRATOS");
+                    put("qtd", String.valueOf(c));
+                }
+            });
+
+            qtdTiposDocs.add(new HashMap<String, String>() {
+                {
+                    put("tipo", "FINANCEIRA");
+                    put("qtd", String.valueOf(f));
+                }
+            });
+
+            qtdTiposDocs.add(new HashMap<String, String>() {
+                {
+                    put("tipo", "LICITAÇÃO");
+                    put("qtd", String.valueOf(l));
+                }
+            });
+
+            qtdTiposDocs.add(new HashMap<String, String>() {
+                {
+                    put("tipo", "PASTA FUNCIONAL");
+                    put("qtd", String.valueOf(p));
+                }
+            });
+
+            qtdTiposDocs.add(new HashMap<String, String>() {
+                {
+                    put("tipo", "OUTROS DOCUMENTOS");
+                    put("qtd", String.valueOf(o));
+                }
+            });
 
             userDocuments.add(
                     new ReportDocumentUserDTO(Long.parseLong(iu.getId()), iu.getNome(), total, qtdTiposDocs)
