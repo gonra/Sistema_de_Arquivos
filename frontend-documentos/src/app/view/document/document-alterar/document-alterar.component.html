@@ -1,8 +1,7 @@
 <div class="no-style" style="margin-left: 4px">
   <div class="container">
-    <h1>Update Documento</h1>
     <form [formGroup]="formUpdateDocument" (ngSubmit)="update()">
-      <p>Editar {{tipoDocumento}}</p>
+      <h2>Editar {{tipoDocumento}}</h2>
       <mat-divider></mat-divider>
       <div id="formulario">
         <p>Dados do Documento</p>
@@ -187,8 +186,11 @@
           </div>
         </div>
       </div>  
-
-
+        <div class="management-buttons">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            |
+            <button (click)="back()" class="btn btn-secondary">Voltar</button>
+        </div>
     </form>
   </div>
 </div>
